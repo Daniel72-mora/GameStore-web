@@ -1,0 +1,13 @@
+# --- Extensiones de editores ---
+.vscode/
+.DS_Store
+Thumbs.db
+
+# --- Archivos de configuración sensible ---
+# Aquí es donde Maricela y Felipe guardarán las llaves de las APIs
+.env
+config.local.js
+
+# --- Archivos temporales de sistema ---
+*.log
+npm-debug.log*
