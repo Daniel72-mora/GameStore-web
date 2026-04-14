@@ -1,0 +1,480 @@
+/* --- RESETS PREMIUM & SEMÁNTICOS (Cero Div, Cero Span) --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul, ol, menu {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+button, input, select {
+    font-family: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Address por defecto usa cursiva */
+address {
+    font-style: normal; 
+}
+
+/* Abbr por defecto usa borde punteado inferior */
+abbr {
+    text-decoration: none;
+    cursor: help;
+}
+
+/* Strong por defecto usa negrita */
+strong {
+    font-weight: 700;
+}
+
+/* --- VARIABLES PREMIUM (Cian Eléctrico + Morado Neón) --- */
+:root {
+    /* Paleta Oscura (Predeterminada) */
+    --bg-dark: #0A0A0A;
+    --text-dark: #F5F5F5;
+    --card-dark: #1A1A1A;
+    --nav-dark: rgba(10, 10, 10, 0.9); /* Transparente para Glassmorphism */
+    
+    /* Paleta Clara (Theme Toggle) */
+    --bg-light: #FDFDFD;
+    --text-light: #121212;
+    --card-light: #FFFFFF;
+    --nav-light: rgba(253, 253, 253, 0.9);
+    
+    /* Colores de Acento ( Premium / Neon) */
+    --accent-cyan: #00F2FE;
+    --accent-cyan-hover: #4FACFE;
+    --accent-glow: 0 0 15px rgba(0, 242, 254, 0.5);
+    
+    /* Espaciado y Layout */
+    --container-width: 1200px;
+    --border-radius-card: 12px;
+}
+
+/* --- APLICACIÓN DE TEMAS --- */
+body.dark-theme {
+    --bg-color: var(--bg-dark);
+    --text-color: var(--text-dark);
+    --card-bg: var(--card-dark);
+    --nav-bg: var(--nav-dark);
+    --shadow-color: rgba(0,0,0,0.5);
+}
+
+body.light-theme {
+    --bg-color: var(--bg-light);
+    --text-color: var(--text-light);
+    --card-bg: var(--card-light);
+    --nav-bg: var(--nav-light);
+    --shadow-color: rgba(0,0,0,0.1);
+}
+
+/* --- ESTILOS BASE & TIPOGRAFÍA PREMIUM --- */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.font-oswald {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* LA CLASE CONTENEDORA ES VITAL (Se aplica a etiquetas semánticas) */
+.container {
+    width: 90%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+/* --- HEADER PREMIUM (Semántica: Fixed & Glassmorphism) --- */
+.main-header {
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px); /* Efecto cristal */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+/* Estilo para strong dentro del logo (Reemplazo de span) */
+.logo strong {
+    color: var(--accent-cyan);
+    text-shadow: var(--accent-glow);
+}
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.8rem;
+}
+
+.nav-links a {
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.nav-links a.active {
+    color: var(--accent-cyan);
+    font-weight: 700;
+}
+
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--accent-cyan);
+    border-radius: 2px;
+    box-shadow: var(--accent-glow);
+}
+
+.nav-links a:hover {
+    color: var(--accent-cyan);
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.premium-select {
+    color: var(--text-color);
+    padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+}
+
+.theme-btn {
+    font-size: 1.4rem;
+}
+
+.cart-btn {
+    position: relative;
+    font-size: 1.4rem;
+}
+
+/* Estilo para strong icon dentro del carrito (Reemplazo de span) */
+.cart-btn .icon {
+    font-weight: 700;
+}
+
+.cart-btn:hover .icon {
+    text-shadow: var(--accent-glow);
+}
+
+/* Estilo para strong badge dentro del carrito (Reemplazo de span) */
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: var(--accent-cyan);
+    color: var(--bg-dark);
+    font-size: 0.75rem;
+    font-weight: 700; /* Aseguramos negrita de strong */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--accent-glow);
+}
+
+/* BOTÓN DE LOGIN (Outline Premium) */
+.btn-premium-outline {
+    border: 2px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-premium-outline:hover {
+    background-color: var(--accent-cyan);
+    color: var(--bg-dark);
+    box-shadow: var(--accent-glow);
+}
+
+/* --- HERO SECTION PREMIUM (Full Width & Glow - CERO Div, CERO Span) --- */
+.hero {
+    height: 80vh;
+    position: relative;
+    /* Gradiente directamente sobre hero */
+    background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.4)), url('assets/hero-bg.jpg') center/cover no-repeat;
+    margin-top: 80px; /* Compensa la navbar fija */
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    max-width: 650px;
+    color: #FFFFFF;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+}
+
+.btn-premium-primary {
+    background-color: var(--accent-cyan);
+    color: var(--bg-dark);
+    padding: 15px 35px;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    box-shadow: var(--accent-glow);
+    transition: all 0.3s ease;
+}
+
+.btn-premium-primary:hover {
+    background-color: var(--accent-cyan-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 242, 254, 0.7);
+}
+
+/* --- CATÁLOGO & GAME CARDS PREMIUM (GRID & ANIMATIONS) --- */
+.catalog-section {
+    padding: 6rem 0;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 2.2rem;
+    color: var(--text-color);
+}
+
+/* BARRA DE BÚSQUEDA PREMIUM */
+.search-bar-premium {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar-premium input {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 12px 20px;
+    padding-right: 45px;
+    border-radius: 30px;
+    border: 1px solid rgba(255,255,255,0.05);
+    width: 300px;
+    transition: border-color 0.3s;
+}
+
+.search-bar-premium input:focus {
+    border-color: var(--accent-cyan);
+    outline: none;
+    box-shadow: var(--accent-glow);
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    font-size: 1.2rem;
+    opacity: 0.6;
+}
+
+/* GRILLA DE JUEGOS PREMIUM */
+.game-grid-premium {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* CARD PREMIUM (Efecto Elevado & Glow - CERO Div, CERO Span) */
+.game-card-premium {
+    background: var(--card-bg);
+    border-radius: var(--border-radius-card);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-card-premium:hover,
+.game-card-premium:focus {
+    transform: translateY(-10px);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 15px 30px rgba(0, 242, 254, 0.2);
+    outline: none;
+}
+
+.card-media-premium {
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-media-premium img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Efecto zoom al pasar mouse */
+.game-card-premium:hover .card-media-premium img {
+    transform: scale(1.05);
+}
+
+/* CAPA SUPERPUESTA PARA EL BOTÓN (+ Añadir - Semántica Avanzada) */
+.card-overlay-aside {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* Oculto por defecto */
+    transition: opacity 0.3s ease;
+}
+
+.game-card-premium:hover .card-overlay-aside {
+    opacity: 1; /* Visible en hover */
+}
+
+/* Botón Añadir Premium (Cian & Bold) */
+.btn-add-cart-premium {
+    background-color: var(--accent-cyan);
+    color: var(--bg-dark);
+    padding: 10px 20px;
+    font-weight: 700;
+    border-radius: 4px;
+    transform: translateY(20px);
+    transition: transform 0.4s ease, background-color 0.3s ease;
+}
+
+.game-card-premium:hover .btn-add-cart-premium {
+    transform: translateY(0);
+}
+
+.btn-add-cart-premium:hover {
+    background-color: var(--accent-cyan-hover);
+}
+
+/* INFO DE LA CARD (Sección semántica) */
+.card-info-premium {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 8px;
+}
+
+.card-info-premium h3 {
+    font-size: 1.25rem;
+    margin-bottom: 2px;
+}
+
+/* Estilos para abbr dentro de info (Reemplazo de span) */
+.platforms abbr, .price abbr {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none; /* Quitamos borde punteado */
+    cursor: help; /* Mantenemos cursor help */
+}
+
+.price {
+    color: var(--accent-cyan);
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-top: auto; /* Empuja el precio al fondo */
+    text-shadow: var(--accent-glow);
+}
+
+/* --- FOOTER PREMIUM (Usando Address semántica) --- */
+.main-footer-premium {
+    background: var(--nav-bg);
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+}
+
+.footer-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.slogan-footer {
+    color: var(--accent-cyan);
+    font-size: 1.2rem;
+    text-shadow: var(--accent-glow);
+}
+
+/* --- RESPONSIVE DESIGN PREMIMUM (Karol - CSS Avanzado necesario) --- */
+@media (max-width: 992px) {
+    .hero-content h1 { font-size: 2.8rem; }
+}
+
+@media (max-width: 768px) {
+    .nav-links { display: none; } /* Karol: Menú hamburguesa necesario */
+    .hero { height: 60vh; text-align: center; }
+    .hero-content h1 { font-size: 2.2rem; }
+    .search-bar-premium input { width: 100%; }
+    .footer-grid { flex-direction: column; gap: 1rem; }
+}

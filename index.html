@@ -1,14 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+    <title>GameStore Web | Semántica Pura Premium (Cero Div, Cero Span)</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme">
+    
+    <header class="main-header">
+        <nav class="navbar container" aria-label="Navegación principal">
+            
+            <a href="index.html" class="logo" aria-label="Ir al inicio">GAME<strong>STORE</strong></a>
+            
+            <menu class="nav-controls">
+                <ul class="nav-links">
+                    <li><a href="#inicio" class="active" data-es="Inicio" data-en="Home">Inicio</a></li>
+                    <li><a href="#catalogo" data-es="Catálogo" data-en="Catalog">Catálogo</a></li>
+                </ul>
+                
+                <menu class="action-buttons" aria-label="Herramientas de usuario">
+                    <li>
+                        <select id="lang-select" class="premium-select" aria-label="Seleccionar idioma">
+                            <option value="es">ES</option>
+                            <option value="en">EN</option>
+                        </select>
+                    </li>
+                    
+                    <li>
+                        <button id="theme-toggle" class="icon-btn theme-btn" aria-label="Cambiar modo de color">
+                            </button>
+                    </li>
+                    
+                    <li>
+                        <button id="cart-btn" class="icon-btn cart-btn" aria-label="Ver carrito de compras">
+                            <strong class="icon">🛒</strong>
+                            <strong id="cart-count" class="badge">0</strong>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button id="login-btn" class="btn-premium-outline" data-es="Entrar" data-en="Login">
+                            Entrar
+                        </button>
+                    </li>
+                </menu>
+            </menu>
 
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="inicio" aria-labelledby="hero-title">
+            <header class="hero-content container">
+                <h1 id="hero-title" class="font-oswald" data-es="TU PRÓXIMA AVENTURA COMIENZA AQUÍ" data-en="YOUR NEXT ADVENTURE STARTS HERE">
+                    TU PRÓXIMA AVENTURA COMIENZA AQUÍ
+                </h1>
+                <p data-es="Explora, descubre y domina. Los mejores títulos a precios inmejorables." data-en="Explore, discover, and dominate. The best titles at unbeatable prices.">
+                    Explora, descubre y domina. Los mejores títulos a precios inmejorables.
+                </p>
+                <a href="#catalogo" class="btn-premium-primary" data-es="EXPLORAR CATÁLOGO" data-en="EXPLORE CATALOG">
+                    EXPLORAR CATÁLOGO
+                </a>
+            </header>
+        </section>
+
+        <section class="catalog-section container" id="catalogo" aria-labelledby="catalog-title">
+            
+            <header class="section-header">
+                <h2 id="catalog-title" class="font-oswald" data-es="JUEGOS DESTACADOS" data-en="FEATURED GAMES">
+                    JUEGOS DESTACADOS
+                </h2>
+                
+                <form class="search-bar-premium" aria-label="Búsqueda de juegos">
+                    <input type="search" placeholder="Buscar tu próximo juego..." aria-label="Buscar videojuegos">
+                    <button type="submit" class="search-icon">🔍</button>
+                </form>
+            </header>
+
+            <section id="game-catalog" class="game-grid-premium" aria-label="Lista de videojuegos">
+                
+                <article class="game-card-premium" tabindex="0">
+                    <figure class="card-media-premium">
+                        <img src="assets/halo-infinite-cover.jpg" alt="Portada Halo Infinite" loading="lazy">
+                        <aside class="card-overlay-aside">
+                            <button class="btn-add-cart-premium" aria-label="Añadir Halo Infinite al carrito">
+                                + Añadir
+                            </button>
+                        </aside>
+                    </figure>
+                    <section class="card-info-premium">
+                        <h3>Halo Infinite</h3>
+                        <p class="platforms"><abbr title="Personal Computer">PC</abbr> | <abbr title="Xbox Series X/S">XBOX</abbr></p>
+                        <p class="price">$199.900 <abbr title="Peso Colombiano">COP</abbr></p>
+                    </section>
+                </article>
+
+            </section>
+        </section>
+    </main>
+
+    <footer class="main-footer-premium">
+        <address class="container footer-grid">
+            <p>&copy; 2026 GameStore Web. Proyecto Final - Sprint 1.</p>
+            <p class="slogan-footer font-oswald">LEVEL UP.</p>
+        </address>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./js/app.js"></script>
+    
+    <script src="js/app.js"></script>
 </body>
 </html>
