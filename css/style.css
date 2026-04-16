@@ -728,6 +728,66 @@ body {
     text-shadow: var(--accent-glow);
 }
 
+/* Estilos Vista Detalle - Astrid */
+.modal-premium {
+    border: none;
+    border-radius: 1rem;
+    background: #121212;
+    color: #fff;
+    padding: 0;
+    max-width: 700px;
+    width: 90%;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.modal-premium::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+}
+
+.detail-banner {
+    position: relative;
+    margin: 0;
+}
+
+.detail-banner img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.btn-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.detail-body {
+    padding: 2rem;
+}
+
+.game-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #00ff96; /* Color acento */
+}
+
+.description-text {
+    line-height: 1.6;
+    color: #ccc;
+}
+
 /* --- RESPONSIVE DESIGN PREMIMUM (Karol - CSS Avanzado necesario) --- */
 @media (max-width: 992px) {
     .hero-content h1 { font-size: 2.8rem; }

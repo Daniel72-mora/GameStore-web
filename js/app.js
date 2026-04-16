@@ -149,3 +149,49 @@ if (langSelect) {
 document.addEventListener('DOMContentLoaded', () => {
     cargarIdiomaPrevio();
 });
+
+// --- LÓGICA DE ASTRID - SPRINT 1 ---
+
+const modal = document.getElementById('game-detail-modal');
+const closeModal = document.getElementById('close-modal');
+
+// 1. Función para abrir y llenar el detalle
+async function openGameDetail(gameId) {
+    // Aquí se llamará a la función de Felipe (api.js) en el futuro
+    // Por ahora, simulamos los datos para probar tu UI
+    const gameData = {
+        name: "Halo Infinite",
+        img: "assets/halo-infinite-cover.jpg",
+        rating: 4.5,
+        date: "2021-12-08",
+        platforms: "PC, Xbox Series X/S",
+        description: "Vuelve el Jefe Maestro en una aventura épica de mundo abierto..."
+    };
+
+    // Llenar la interfaz
+    document.getElementById('modal-title').innerText = gameData.name;
+    document.getElementById('modal-img').src = gameData.img;
+    document.getElementById('modal-rating').innerText = gameData.rating;
+    document.getElementById('modal-date').innerText = gameData.date;
+    document.getElementById('modal-platforms').innerText = gameData.platforms;
+    document.getElementById('modal-description').innerText = gameData.description;
+
+    modal.showModal(); // Método nativo para abrir <dialog>
+}
+
+// 2. Escuchar clics en las tarjetas del catálogo
+document.getElementById('game-catalog').addEventListener('click', (e) => {
+    // Si hacen clic en la imagen o el título de la tarjeta
+    const card = e.target.closest('.game-card-premium');
+    if (card) {
+        openGameDetail('id-del-juego');
+    }
+});
+
+// 3. Evento para cerrar
+closeModal.addEventListener('click', () => modal.close());
+
+// Cerrar si hacen clic fuera del contenido
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.close();
+});

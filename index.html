@@ -140,6 +140,32 @@
         </address>
     </footer>
 
+    <dialog id="game-detail-modal" class="modal-premium">
+        <article class="detail-container">
+            <header class="detail-header">
+                <button id="close-modal" class="btn-close" aria-label="Cerrar detalle">×</button>
+                <figure class="detail-banner">
+                    <img id="modal-img" src="" alt="Portada del juego">
+                    <h2 id="modal-title" class="font-oswald text-gradient"></h2>
+                </figure>
+            </header>
+            
+            <section class="detail-body">
+                <aside class="game-meta">
+                    <p><strong>Rating:</strong> <mark id="modal-rating"></mark> / 5 ⭐</p>
+                    <p><strong>Lanzamiento:</strong> <time id="modal-date"></time></p>
+                    <p><strong>Plataformas:</strong> <small id="modal-platforms"></small></p>
+                </aside>
+                
+                <p id="modal-description" class="description-text"></p>
+                
+                <footer class="detail-actions">
+                    <button class="btn-premium-primary">Añadir al Carrito</button>
+                </footer>
+            </section>
+        </article>
+    </dialog>
+
     <script src="js/theme.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
