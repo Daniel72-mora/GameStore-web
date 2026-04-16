@@ -38,6 +38,268 @@ strong {
     font-weight: 700;
 }
 
+
+
+:root {
+    --primary-neon: #00f2ff;
+    --secondary-neon: #7000ff;
+    --text-white: #ffffff;
+}
+
+.gaming-hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-white);
+    background-image: url('http://googleusercontent.com/image_generation_content/0');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Capa oscura para que el texto sea legible */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%);
+    z-index: 1;
+}
+
+.hero-container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.badge {
+    background: var(--secondary-neon);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 0 15px var(--secondary-neon);
+}
+
+h1 {
+    font-size: 5rem;
+    margin: 20px 0;
+    line-height: 0.9;
+    text-transform: uppercase;
+}
+
+.highlight {
+    color: var(--primary-neon);
+    text-shadow: 0 0 20px var(--primary-neon);
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+/* Botones con estilo Gaming */
+.btn {
+    padding: 15px 35px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: 0.3s;
+    display: inline-block;
+    margin: 10px;
+}
+
+.btn-glitch {
+    background: var(--primary-neon);
+    color: #000;
+    box-shadow: 4px 0 0 var(--secondary-neon);
+}
+
+.btn-glitch:hover {
+    box-shadow: -4px 0 0 var(--secondary-neon);
+    transform: scale(1.05);
+}
+
+.btn-outline {
+    border: 2px solid var(--text-white);
+    color: var(--text-white);
+}
+
+.btn-outline:hover {
+    background: var(--text-white);
+    color: #000;
+}
+
+
+.hero-gaming {
+    /* Vinculación de la imagen */
+   background-image: url('fondo.png');
+    
+    /* Ajustes para que se vea perfecta */
+    background-size: cover;           /* Cubre todo el espacio sin estirarse */
+    background-position: center;      /* Centra la imagen */
+    background-repeat: no-repeat;     /* Evita que se duplique */
+    
+    /* Altura y alineación */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: white;
+}
+
+/* La capa oscura para que el texto resalte sobre tu imagen */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Ajusta el 0.5 para más o menos oscuridad */
+    z-index: 1;
+}
+
+.container {
+    position: relative;
+    z-index: 2; /* Pone el texto por encima de la imagen y la capa oscura */
+    text-align: center;
+}
+
+
+
+/* === ESTILOS GLOBALES === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif; /* Usamos fuente moderna (requiere importación o sistema) */
+}
+
+body {
+    background-color: #050505;
+    color: white;
+}
+
+/* === SECCIÓN HERO === */
+.hero-gaming {
+    /* Altura y Alineación de Contenido */
+    min-height: 100vh;
+    display: flex;
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal del contenedor */
+    position: relative;
+    padding: 2rem;
+    overflow: hidden;
+
+    /* == VINCULACIÓN DE LA IMAGEN DE FONDO (imagen1.png) == */
+    /* Asegúrate de que imagen1.png esté en la misma carpeta */
+    background-image: url('imagen1.png');
+    
+    /* Propiedades clave de adaptabilidad */
+    background-size: cover;           /* CUBRE todo sin deformar */
+    background-position: left center; /* Prioriza el lado izquierdo oscuro para el texto */
+    background-repeat: no-repeat;     /* Evita que se duplique */
+    background-attachment: fixed;     /* Efecto sutil al hacer scroll (opcional) */
+}
+
+/* --- Contenedor de Texto (Para alinearlo a la izquierda) --- */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2; /* Por encima de la imagen de fondo */
+    text-align: left; /* Alineado a la izquierda para aprovechar el espacio oscuro */
+    padding-left: 5%; /* Pequeña separación del borde */
+}
+
+/* --- Estilos de Texto --- */
+h1 {
+    font-size: clamp(2rem, 5vw, 4rem); /* Fuente fluida según pantalla */
+    line-height: 1.1;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    font-weight: 900;
+}
+
+.highlight {
+    color: #00f2ff; /* Neón Azul */
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.7);
+}
+
+p {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.7;
+    max-width: 550px; /* Limitamos ancho de p para lectura */
+    margin-bottom: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* --- Botones --- */
+.actions {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #00f2ff;
+    color: #000;
+}
+
+.btn-primary:hover {
+    background: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 242, 255, 0.4);
+}
+
+.btn-secondary {
+    border: 2px solid white;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* === MEDIA QUERY (MÓVIL) === */
+@media (max-width: 768px) {
+    .container {
+        text-align: center; /* Centramos texto en móvil */
+        padding-left: 0;
+    }
+    
+    .actions {
+        justify-content: center; /* Centramos botones */
+    }
+}
+
+
+
+
+
+
+
 /* --- VARIABLES PREMIUM (Cian Eléctrico + Morado Neón) --- */
 :root {
     /* Paleta Oscura (Predeterminada) */
@@ -478,3 +740,5 @@ body {
     .search-bar-premium input { width: 100%; }
     .footer-grid { flex-direction: column; gap: 1rem; }
 }
+
+/* tamaño de imagen  */
