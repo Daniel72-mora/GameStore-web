@@ -141,30 +141,32 @@
     </footer>
 
     <dialog id="game-detail-modal" class="modal-premium">
-        <article class="detail-container">
-            <header class="detail-header">
-                <button id="close-modal" class="btn-close" aria-label="Cerrar detalle">×</button>
-                <figure class="detail-banner">
-                    <img id="modal-img" src="" alt="Portada del juego">
-                    <h2 id="modal-title" class="font-oswald text-gradient"></h2>
-                </figure>
-            </header>
+    <article class="detail-full-card cart-container">
+        <button id="close-modal" class="btn-close-top">×</button>
+        
+        <header class="detail-hero">
+            <img id="modal-img" src="" alt="Banner del juego">
+            <h2 id="modal-title" class="font-oswald title-large"></h2>
+        </header>
+        
+        <section class="detail-content-full">
+            <aside class="game-quick-info">
+                <p><strong>Rating:</strong> <span id="modal-rating"></span> ⭐</p>
+                <p><strong>Fecha:</strong> <span id="modal-date"></span></p>
+            </aside>
             
-            <section class="detail-body">
-                <aside class="game-meta">
-                    <p><strong>Rating:</strong> <mark id="modal-rating"></mark> / 5 ⭐</p>
-                    <p><strong>Lanzamiento:</strong> <time id="modal-date"></time></p>
-                    <p><strong>Plataformas:</strong> <small id="modal-platforms"></small></p>
-                </aside>
-                
-                <p id="modal-description" class="description-text"></p>
-                
-                <footer class="detail-actions">
-                    <button class="btn-premium-primary">Añadir al Carrito</button>
-                </footer>
-            </section>
-        </article>
-    </dialog>
+            <div id="modal-description" class="description-full"></div>
+            
+            <footer class="detail-footer-full">
+                <button class="btn-success">Añadir al Carrito</button>
+                <button id="btn-cerrar-inferior" class="btn-danger">Volver al Catálogo</button>
+            </footer>
+        </section>
+    </article>
+</dialog>
+    <script src="js/theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/app.js"></script>
 
     <script src="js/theme.js"></script>
     

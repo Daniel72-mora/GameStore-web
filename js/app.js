@@ -31,16 +31,11 @@ const searchForm = document.querySelector('.search-bar-premium');
 const searchInput = searchForm.querySelector('input');
 const langSelect = document.getElementById('lang-select');
 
-/**
- * FETCH INICIAL Y BÚSQUEDA
- */
 async function fetchRawgGames(searchTerm = '') {
     try {
         const query = searchTerm ? `&search=${searchTerm}` : '';
         const response = await fetch(`${BASE_URL}?key=${RAWG_KEY}&page_size=12${query}`);
-        
         if (!response.ok) throw new Error("Error en la API de RAWG");
-        
         const data = await response.json();
         renderStore(data.results);
     } catch (error) {
@@ -48,20 +43,13 @@ async function fetchRawgGames(searchTerm = '') {
     }
 }
 
-/**
- * FUNCIÓN DE INYECCIÓN DINÁMICA
- */
 function renderStore(games) {
     if (!catalogContainer) return;
     catalogContainer.innerHTML = ''; 
     const currentLang = langSelect ? langSelect.value : 'es';
 
-    // Manejo de búsqueda sin resultados
     if (games.length === 0) {
-        catalogContainer.innerHTML = `
-            <p style="grid-column: 1/-1; text-align: center; padding: 3rem; font-size: 1.2rem; color: var(--accent-color);">
-                ${currentLang === 'es' ? 'No se encontraron videojuegos con ese nombre.' : 'No video games found with that name.'}
-            </p>`;
+        catalogContainer.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 3rem; font-size: 1.2rem; color: var(--accent-color);">${currentLang === 'es' ? 'No se encontraron videojuegos.' : 'No games found.'}</p>`;
         return;
     }
 
@@ -72,6 +60,7 @@ function renderStore(games) {
         const article = document.createElement('article');
         article.className = 'game-card-premium';
         article.tabIndex = 0;
+        article.dataset.id = game.id; 
 
         article.innerHTML = `
             <figure class="card-media-premium">
@@ -91,107 +80,103 @@ function renderStore(games) {
 }
 
 // ==========================================
-// 3. SISTEMA DE INTERNACIONALIZACIÓN Y PERSISTENCIA
+// 3. SISTEMA DE INTERNACIONALIZACIÓN
 // ==========================================
 
-/**
- * Traduce elementos estáticos y guarda preferencia en LocalStorage
- */
 function translatePage(lang) {
-    // Guardar preferencia para que no se borre al recargar (F5)
     localStorage.setItem('idiomaPreferido', lang);
-
     const elements = document.querySelectorAll('[data-es]');
     elements.forEach(el => {
-        // Usamos innerHTML para mantener el diseño de <em> en el Hero
         const translation = (lang === 'en') ? el.getAttribute('data-en') : el.getAttribute('data-es');
         el.innerHTML = translation;
     });
-
-    // Traducir placeholder
     if (searchInput) {
         searchInput.placeholder = (lang === 'en') ? "Search your next game..." : "Buscar tu próximo juego...";
     }
-    
-    // Refrescar catálogo para traducir los botones de las cartas
     fetchRawgGames(searchInput.value);
 }
 
-/**
- * Carga el idioma guardado al abrir la página
- */
 function cargarIdiomaPrevio() {
     const idiomaGuardado = localStorage.getItem('idiomaPreferido');
     if (idiomaGuardado && langSelect) {
         langSelect.value = idiomaGuardado;
         translatePage(idiomaGuardado);
     } else {
-        fetchRawgGames(); // Carga inicial si no hay idioma guardado
+        fetchRawgGames();
     }
 }
 
-// --- EVENTOS ---
-
-// Búsqueda
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
     fetchRawgGames(searchInput.value);
 });
 
-// Cambio de idioma
 if (langSelect) {
-    langSelect.addEventListener('change', (e) => {
-        translatePage(e.target.value);
-    });
+    langSelect.addEventListener('change', (e) => translatePage(e.target.value));
 }
 
-// Inicio automático al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     cargarIdiomaPrevio();
 });
 
-// --- LÓGICA DE ASTRID - SPRINT 1 ---
+// ==========================================
+// 4. LÓGICA DE ASTRID - SPRINT 1 (Full Screen Detail)
+// ==========================================
 
 const modal = document.getElementById('game-detail-modal');
 const closeModal = document.getElementById('close-modal');
+const closeBtnLower = document.getElementById('btn-cerrar-inferior');
 
-// 1. Función para abrir y llenar el detalle
 async function openGameDetail(gameId) {
-    // Aquí se llamará a la función de Felipe (api.js) en el futuro
-    // Por ahora, simulamos los datos para probar tu UI
-    const gameData = {
-        name: "Halo Infinite",
-        img: "assets/halo-infinite-cover.jpg",
-        rating: 4.5,
-        date: "2021-12-08",
-        platforms: "PC, Xbox Series X/S",
-        description: "Vuelve el Jefe Maestro en una aventura épica de mundo abierto..."
-    };
+    try {
+        const response = await fetch(`${BASE_URL}/${gameId}?key=${RAWG_KEY}`);
+        const game = await response.json();
 
-    // Llenar la interfaz
-    document.getElementById('modal-title').innerText = gameData.name;
-    document.getElementById('modal-img').src = gameData.img;
-    document.getElementById('modal-rating').innerText = gameData.rating;
-    document.getElementById('modal-date').innerText = gameData.date;
-    document.getElementById('modal-platforms').innerText = gameData.platforms;
-    document.getElementById('modal-description').innerText = gameData.description;
+        // 1. Inyectar Textos
+        document.getElementById('modal-title').innerText = game.name;
+        document.getElementById('modal-description').innerHTML = game.description || "No description available.";
+        
+        // 2. Inyectar Multimedia
+        const modalImg = document.getElementById('modal-img');
+        if (modalImg) {
+            modalImg.src = game.background_image_additional || game.background_image;
+            modalImg.alt = game.name;
+        }
 
-    modal.showModal(); // Método nativo para abrir <dialog>
+        // 3. Info Adicional
+        if(document.getElementById('modal-rating')) document.getElementById('modal-rating').innerText = game.rating;
+        if(document.getElementById('modal-date')) document.getElementById('modal-date').innerText = game.released;
+
+        // 4. Mostrar Modal y Resetear Scroll para vista Full Screen
+        modal.showModal();
+        
+        // Asegura que si la tarjeta tiene scroll interno, empiece desde arriba
+        const cardContainer = document.querySelector('.detail-full-card');
+        if (cardContainer) cardContainer.scrollTop = 0;
+
+    } catch (error) {
+        console.error("Error al cargar el detalle Full Screen:", error);
+    }
 }
 
-// 2. Escuchar clics en las tarjetas del catálogo
-document.getElementById('game-catalog').addEventListener('click', (e) => {
-    // Si hacen clic en la imagen o el título de la tarjeta
-    const card = e.target.closest('.game-card-premium');
-    if (card) {
-        openGameDetail('id-del-juego');
-    }
-});
+// Escuchar clics en el catálogo
+if (catalogContainer) {
+    catalogContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('btn-add-cart-premium')) return;
 
-// 3. Evento para cerrar
-closeModal.addEventListener('click', () => modal.close());
+        const card = e.target.closest('.game-card-premium');
+        if (card && card.dataset.id) {
+            openGameDetail(card.dataset.id);
+        }
+    });
+}
 
-// Cerrar si hacen clic fuera del contenido
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.close();
+// Controladores de cierre
+const cerrarModal = () => modal.close();
+
+if (closeModal) closeModal.onclick = cerrarModal;
+if (closeBtnLower) closeBtnLower.onclick = cerrarModal;
+
+modal?.addEventListener('click', (e) => {
+    if (e.target === modal) cerrarModal();
 });
