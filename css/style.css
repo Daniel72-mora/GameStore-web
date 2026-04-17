@@ -972,3 +972,80 @@ dialog[open] {
 .btn-success:active, .btn-danger:active {
     transform: scale(0.95);
 }
+
+.catalog-filters {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    justify-content: flex-end;
+}
+
+.premium-select-filter {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid rgba(78, 7, 61, 0.5);
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.premium-select-filter:hover {
+    border-color: #ff007a;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.premium-select-filter option {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.auth-card {
+    background: #121212;
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid #4e073d;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.form-premium {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.form-premium input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    color: white;
+    border-radius: 8px;
+    outline: none;
+}
+
+.form-premium input:focus {
+    border-color: #ff007a;
+}
+
+.auth-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.auth-options a {
+    color: #88d3ce;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.auth-options a:hover {
+    text-decoration: underline;
+}

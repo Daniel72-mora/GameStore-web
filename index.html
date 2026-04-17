@@ -35,8 +35,8 @@
         
         <nav class="actions">
             <a href="#play" class="btn btn-main" 
-               data-es="Jugar Ahora" 
-               data-en="Play Now">Jugar Ahora</a> 
+               data-es="------" 
+               data-en="Play Now"></a> 
         </nav>
     </article>
 </header>
@@ -48,8 +48,10 @@
             
             <menu class="nav-controls">
                 <ul class="nav-links">
-                    <li><a href="#inicio" class="active" data-es="Inicio" data-en="Home">Inicio</a></li>
-                    <li><a href="#catalogo" data-es="Catálogo" data-en="Catalog">Catálogo</a></li>
+                    <li>
+                        <button id="login-btn" class="btn-premium-outline" data-es="Entrar" data-en="Login">Entrar</button>
+                    </li>
+                    
                 </ul>
                 
                 <menu class="action-buttons" aria-label="Herramientas de usuario">
@@ -101,9 +103,22 @@
         <section class="catalog-section container" id="catalogo" aria-labelledby="catalog-title">
             
             <header class="section-header">
-                <h2 id="catalog-title" class="font-oswald" data-es="JUEGOS DESTACADOS" data-en="FEATURED GAMES">
-                    JUEGOS DESTACADOS
-                </h2>
+                <nav class="catalog-filters" aria-label="Filtros de búsqueda">
+                <select id="genre-filter" class="premium-select-filter">
+                    <option value="" data-es="Todos los Géneros" data-en="All Genres">Todos los Géneros</option>
+                    <option value="action">Acción</option>
+                    <option value="adventure">Aventura</option>
+                    <option value="role-playing-games-rpg">RPG</option>
+                    <option value="shooter">Shooter</option>
+                </select>
+
+                    <select id="sort-filter" class="premium-select-filter">
+                        <option value="" data-es="Ordenar por..." data-en="Sort by...">Ordenar por...</option>
+                        <option value="-rating" data-es="Más Populares" data-en="Most Popular">Más Populares</option>
+                        <option value="-released" data-es="Novedades" data-en="Newest">Novedades</option>
+                        <option value="name" data-es="Nombre (A-Z)" data-en="Name (A-Z)">Nombre (A-Z)</option>
+                    </select>
+                </nav>
                 
                 <form class="search-bar-premium" aria-label="Búsqueda de juegos">
                     <input type="search" placeholder="Buscar tu próximo juego..." aria-label="Buscar videojuegos">
@@ -162,6 +177,29 @@
                 <button id="btn-cerrar-inferior" class="btn-danger">Volver al Catálogo</button>
             </footer>
         </section>
+    </article>
+</dialog>
+
+<dialog id="auth-modal" class="modal-premium">
+    <article class="auth-card">
+        <button id="close-auth" class="btn-close-top">×</button>
+        
+        <h2 class="font-oswald text-gradient" id="auth-title">INICIAR SESIÓN</h2>
+        
+        <form id="auth-form" class="form-premium">
+            <label for="auth-email">Correo Electrónico</label>
+            <input type="email" id="auth-email" placeholder="ejemplo@correo.com" required>
+            
+            <label for="auth-password">Contraseña</label>
+            <input type="password" id="auth-password" placeholder="••••••••" required>
+            
+            <button type="submit" id="auth-submit" class="btn-success">Entrar</button>
+            
+            <nav class="auth-options">
+                <a href="#" id="link-register">¿No tienes cuenta? Regístrate</a>
+                <a href="#" id="link-recovery">Olvidé mi contraseña</a>
+            </nav>
+        </form>
     </article>
 </dialog>
     <script src="js/theme.js"></script>

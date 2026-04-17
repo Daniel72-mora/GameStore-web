@@ -180,3 +180,164 @@ if (closeBtnLower) closeBtnLower.onclick = cerrarModal;
 modal?.addEventListener('click', (e) => {
     if (e.target === modal) cerrarModal();
 });
+
+// ==========================================
+// 5. IMPLEMENTACIÓN US08 Y US09 (Filtros y Orden)
+// ==========================================
+
+// Referencias a los nuevos elementos del DOM
+const genreFilter = document.getElementById('genre-filter');
+const sortFilter = document.getElementById('sort-filter');
+
+/**
+ * Esta función extiende la funcionalidad de Felipe sin modificar su fetch original.
+ * Redefinimos ligeramente la llamada para incluir los nuevos parámetros.
+ */
+async function applyFiltersAndSort() {
+    const searchTerm = searchInput ? searchInput.value : '';
+    const genre = genreFilter ? genreFilter.value : '';
+    const sort = sortFilter ? sortFilter.value : '';
+
+    try {
+        // Construimos la URL con los parámetros adicionales para la API
+        const genreParam = genre ? `&genres=${genre}` : '';
+        const sortParam = sort ? `&ordering=${sort}` : '';
+        const queryParam = searchTerm ? `&search=${searchTerm}` : '';
+        
+        const response = await fetch(`${BASE_URL}?key=${RAWG_KEY}&page_size=12${queryParam}${genreParam}${sortParam}`);
+        
+        if (!response.ok) throw new Error("Error en la API al filtrar");
+        
+        const data = await response.json();
+        
+        // Usamos la función de renderizado que ya existe en el código de Felipe
+        renderStore(data.results);
+        
+    } catch (error) {
+        console.error("Error en US08/US09:", error);
+    }
+}
+
+// Escuchadores de eventos para los filtros
+if (genreFilter) {
+    genreFilter.addEventListener('change', applyFiltersAndSort);
+}
+
+if (sortFilter) {
+    sortFilter.addEventListener('change', applyFiltersAndSort);
+}
+
+/**
+ * Ajuste para que la búsqueda también respete los filtros activos
+ * Reasignamos el evento submit del formulario original
+ */
+if (searchForm) {
+    searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        applyFiltersAndSort();
+    });
+}
+
+// ==========================================
+// 6. LÓGICA DE FORMULARIO DE AUTENTICACIÓN
+// ==========================================
+const authModal = document.getElementById('auth-modal');
+const authForm = document.getElementById('auth-form');
+const btnLoginHeader = document.getElementById('login-btn');
+const closeAuth = document.getElementById('close-auth');
+
+// Abrir el formulario al dar clic en "Entrar"
+btnLoginHeader?.addEventListener('click', () => authModal.showModal());
+
+// Cerrar modal
+closeAuth?.addEventListener('click', () => authModal.close());
+
+// Manejar el envío del formulario (Login / Registro)
+authForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('auth-email').value;
+    const password = document.getElementById('auth-password').value;
+    const isRegister = document.getElementById('auth-title').innerText.includes("REGISTRO");
+
+    try {
+        if (isRegister) {
+            // US01: Registro
+            const { error } = await _supabase.auth.signUp({ email, password });
+            if (error) throw error;
+            alert("Registro exitoso. Revisa tu correo.");
+        } else {
+            // US02: Inicio de sesión
+            const { error } = await _supabase.auth.signInWithPassword({ email, password });
+            if (error) throw error;
+            alert("¡Bienvenido!");
+        }
+        authModal.close();
+        checkUser(); // Función que ya definimos para actualizar botones
+    } catch (err) {
+        alert("Error: " + err.message);
+    }
+});
+
+// Cambiar entre Login y Registro dentro del modal
+document.getElementById('link-register')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const title = document.getElementById('auth-title');
+    const submitBtn = document.getElementById('auth-submit');
+    
+    if (title.innerText.includes("INICIAR")) {
+        title.innerText = "REGISTRO DE USUARIO";
+        submitBtn.innerText = "Crear Cuenta";
+        e.target.innerText = "¿Ya tienes cuenta? Inicia sesión";
+    } else {
+        title.innerText = "INICIAR SESIÓN";
+        submitBtn.innerText = "Entrar";
+        e.target.innerText = "¿No tienes cuenta? Regístrate";
+    }
+});
+/**
+ * US03: Cerrar Sesión
+ */
+async function cerrarSesion() {
+    const { error } = await _supabase.auth.signOut();
+    if (error) console.error("Error al salir:", error.message);
+    else {
+        alert("Sesión cerrada.");
+        checkUser();
+    }
+}
+
+/**
+ * Función para verificar el estado del usuario y cambiar botones
+ */
+async function checkUser() {
+    const { data: { user } } = await _supabase.auth.getUser();
+
+    if (user) {
+        if (btnLogin) btnLogin.style.display = 'none';
+        if (btnLogout) btnLogout.style.display = 'block';
+        console.log("Usuario activo:", user.email);
+    } else {
+        if (btnLogin) btnLogin.style.display = 'block';
+        if (btnLogout) btnLogout.style.display = 'none';
+    }
+}
+
+// Eventos
+btnLogin?.addEventListener('click', iniciarSesion);
+btnLogout?.addEventListener('click', cerrarSesion);
+
+// Revisar si hay usuario al cargar la página
+document.addEventListener('DOMContentLoaded', checkUser);
+
+/**
+ * US04: Recuperar contraseña
+ */
+async function recuperarPassword() {
+    const email = prompt("Introduce tu email para enviarte un enlace de recuperación:");
+    if (email) {
+        const { error } = await _supabase.auth.resetPasswordForEmail(email);
+        if (error) alert("Error: " + error.message);
+        else alert("Se ha enviado un correo para restablecer tu contraseña.");
+    }
+}
