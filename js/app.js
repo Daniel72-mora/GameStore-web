@@ -113,11 +113,7 @@ searchForm.addEventListener('submit', (e) => {
 
 if (langSelect) {
     langSelect.addEventListener('change', (e) => translatePage(e.target.value));
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    cargarIdiomaPrevio();
-});
+};
 
 // ==========================================
 // 4. LÓGICA DE ASTRID - SPRINT 1 (Full Screen Detail)
@@ -243,69 +239,66 @@ if (searchForm) {
 // ==========================================
 const authModal = document.getElementById('auth-modal');
 const authForm = document.getElementById('auth-form');
-const btnLoginHeader = document.getElementById('login-btn');
+const btnLogin = document.getElementById('login-btn'); 
+const btnLogout = document.getElementById('logout-btn'); 
 const closeAuth = document.getElementById('close-auth');
 
-// Abrir el formulario al dar clic en "Entrar"
-btnLoginHeader?.addEventListener('click', () => authModal.showModal());
-
-// Cerrar modal
+// Abrir/Cerrar Modal
+btnLogin?.addEventListener('click', () => authModal.showModal());
 closeAuth?.addEventListener('click', () => authModal.close());
 
 // Manejar el envío del formulario (Login / Registro)
 authForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const email = document.getElementById('auth-email').value;
+    // .trim() es vital para evitar el error de "Email invalid"
+    const email = document.getElementById('auth-email').value.trim();
     const password = document.getElementById('auth-password').value;
     const isRegister = document.getElementById('auth-title').innerText.includes("REGISTRO");
 
     try {
         if (isRegister) {
-            // US01: Registro
-            const { error } = await _supabase.auth.signUp({ email, password });
-            if (error) throw error;
-            alert("Registro exitoso. Revisa tu correo.");
+            // 1. Registro en el sistema de Autenticación de Supabase
+            const { data, error: authError } = await _supabase.auth.signUp({ email, password });
+            if (authError) throw authError;
+
+            // 2. Vinculación con tu tabla 'perfiles'
+            if (data.user) {
+                const { error: profileError } = await _supabase
+                    .from('perfiles')
+                    .insert([
+                        { 
+                            // IMPORTANTE: Usamos "Identificación" porque así se llama en tu imagen de Supabase
+                            Identificación: data.user.id, 
+                            nombre_completo: 'Nuevo Usuario', 
+                            rol: 'cliente',
+                            email: email // Asegúrate de haber creado esta columna en Supabase
+                        }
+                    ]);
+                
+                if (profileError) {
+                    console.error("Error al insertar en perfiles:", profileError.message);
+                    alert("Usuario creado, pero hubo un problema con tu perfil de base de datos.");
+                } else {
+                    alert("¡Registro exitoso! Bienvenido a GameStore.");
+                }
+            }
         } else {
-            // US02: Inicio de sesión
-            const { error } = await _supabase.auth.signInWithPassword({ email, password });
-            if (error) throw error;
-            alert("¡Bienvenido!");
+            // Inicio de sesión (Login)
+            const { error: loginError } = await _supabase.auth.signInWithPassword({ email, password });
+            if (loginError) throw loginError;
+            alert("¡Sesión iniciada con éxito!");
         }
+        
         authModal.close();
-        checkUser(); // Función que ya definimos para actualizar botones
+        checkUser(); 
     } catch (err) {
-        alert("Error: " + err.message);
+        // Si sale "Rate limit exceeded", recuerda usar un correo nuevo y modo incógnito
+        alert("Atención: " + err.message);
     }
 });
 
-// Cambiar entre Login y Registro dentro del modal
-document.getElementById('link-register')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    const title = document.getElementById('auth-title');
-    const submitBtn = document.getElementById('auth-submit');
-    
-    if (title.innerText.includes("INICIAR")) {
-        title.innerText = "REGISTRO DE USUARIO";
-        submitBtn.innerText = "Crear Cuenta";
-        e.target.innerText = "¿Ya tienes cuenta? Inicia sesión";
-    } else {
-        title.innerText = "INICIAR SESIÓN";
-        submitBtn.innerText = "Entrar";
-        e.target.innerText = "¿No tienes cuenta? Regístrate";
-    }
-});
-/**
- * US03: Cerrar Sesión
- */
-async function cerrarSesion() {
-    const { error } = await _supabase.auth.signOut();
-    if (error) console.error("Error al salir:", error.message);
-    else {
-        alert("Sesión cerrada.");
-        checkUser();
-    }
-}
+// --- EL RESTO DEL CÓDIGO (Cerrar sesión, CheckUser, etc.) SIGUE IGUAL ---
 
 /**
  * Función para verificar el estado del usuario y cambiar botones
@@ -316,28 +309,25 @@ async function checkUser() {
     if (user) {
         if (btnLogin) btnLogin.style.display = 'none';
         if (btnLogout) btnLogout.style.display = 'block';
-        console.log("Usuario activo:", user.email);
     } else {
         if (btnLogin) btnLogin.style.display = 'block';
         if (btnLogout) btnLogout.style.display = 'none';
     }
 }
 
-// Eventos
-btnLogin?.addEventListener('click', iniciarSesion);
-btnLogout?.addEventListener('click', cerrarSesion);
-
-// Revisar si hay usuario al cargar la página
-document.addEventListener('DOMContentLoaded', checkUser);
-
-/**
- * US04: Recuperar contraseña
- */
-async function recuperarPassword() {
-    const email = prompt("Introduce tu email para enviarte un enlace de recuperación:");
-    if (email) {
-        const { error } = await _supabase.auth.resetPasswordForEmail(email);
-        if (error) alert("Error: " + error.message);
-        else alert("Se ha enviado un correo para restablecer tu contraseña.");
+async function cerrarSesion() {
+    const { error } = await _supabase.auth.signOut();
+    if (error) console.error("Error al salir:", error.message);
+    else {
+        alert("Sesión cerrada.");
+        checkUser();
     }
 }
+
+// Eventos de botones
+btnLogout?.addEventListener('click', cerrarSesion);
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof cargarIdiomaPrevio === 'function') cargarIdiomaPrevio();
+    checkUser();
+});
