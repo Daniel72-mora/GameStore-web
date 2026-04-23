@@ -77,6 +77,8 @@ strong {
     text-align: center;
     max-width: 800px;
     padding: 20px;
+    width: 100%;
+    height: 100%;
 }
 
 .badge {
@@ -512,6 +514,12 @@ body {
 .hero-content {
     max-width: 650px;
     color: #FFFFFF;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;     /* Centra verticalmente */
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .hero-content h1 {
