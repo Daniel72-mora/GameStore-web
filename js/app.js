@@ -297,6 +297,7 @@ recoveryBtn?.addEventListener('click', async () => {
 
 // 4. Capturar el regreso del usuario (Cuando hace clic en el correo)
 _supabase.auth.onAuthStateChange(async (event, session) => {
+    checkUser();
     if (event === "PASSWORD_RECOVERY") {
         const newPassword = prompt("Ingresa tu nueva contraseña (mínimo 6 caracteres):");
         if (newPassword && newPassword.length >= 6) {
@@ -346,8 +347,21 @@ authForm?.addEventListener('submit', async (e) => {
 
 async function checkUser() {
     const { data: { user } } = await _supabase.auth.getUser();
+    const catalogSection = document.getElementById('catalogo'); // Referencia a tu sección
+
     if (btnLogin) btnLogin.style.display = user ? 'none' : 'block';
     if (btnLogout) btnLogout.style.display = user ? 'block' : 'none';
+
+    // LÓGICA PARA EL CATÁLOGO:
+    if (catalogSection) {
+        if (user) {
+            catalogSection.style.display = 'block';
+            // Cargamos los juegos una vez que el usuario está adentro
+            applyFiltersAndSort(); 
+        } else {
+            catalogSection.style.display = 'none';
+        }
+    }
 }
 
 btnLogin?.addEventListener('click', () => { isLoginMode = true; authModal.showModal(); });
