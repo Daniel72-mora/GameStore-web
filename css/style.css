@@ -1057,3 +1057,8 @@ dialog[open] {
 .auth-options a:hover {
     text-decoration: underline;
 }
+
+/* Oculta la sección completa del catálogo al cargar */
+.catalog-section {
+    display: none;
+}
