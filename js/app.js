@@ -235,74 +235,100 @@ if (searchForm) {
 }
 
 // ==========================================
-// 6. LÓGICA DE FORMULARIO DE AUTENTICACIÓN
+// 6. LÓGICA DE AUTENTICACIÓN (Sin Email)
 // ==========================================
 const authModal = document.getElementById('auth-modal');
 const authForm = document.getElementById('auth-form');
-const btnLogin = document.getElementById('login-btn'); 
-const btnLogout = document.getElementById('logout-btn'); 
+const authTitle = document.getElementById('auth-title');
+const toggleAuthBtn = document.getElementById('toggle-auth-mode');
+const nameField = document.getElementById('name-field-group');
+const btnLogin = document.getElementById('login-btn');
+const btnLogout = document.getElementById('logout-btn');
 const closeAuth = document.getElementById('close-auth');
 
-// Abrir/Cerrar Modal
-btnLogin?.addEventListener('click', () => authModal.showModal());
-closeAuth?.addEventListener('click', () => authModal.close());
+let isLoginMode = true; 
 
-// Manejar el envío del formulario (Login / Registro)
+// Cambiar entre Login y Registro
+toggleAuthBtn?.addEventListener('click', () => {
+    isLoginMode = !isLoginMode;
+    const isEn = langSelect.value === 'en';
+
+    authTitle.innerText = isLoginMode 
+        ? (isEn ? "LOGIN" : "INICIAR SESIÓN") 
+        : (isEn ? "REGISTER" : "REGISTRARSE");
+    
+    document.getElementById('auth-submit-btn').innerText = isLoginMode 
+        ? (isEn ? "Sign In" : "Entrar") 
+        : (isEn ? "Sign Up" : "Registrarse");
+
+    toggleAuthBtn.innerText = isLoginMode 
+        ? (isEn ? "Don't have an account? Register" : "¿No tienes cuenta? Regístrate")
+        : (isEn ? "Already have an account? Login" : "¿Ya tienes cuenta? Inicia sesión");
+
+    nameField.style.display = isLoginMode ? 'none' : 'block';
+    document.getElementById('auth-name').required = !isLoginMode;
+});
+
+// Enviar Formulario a Supabase
 authForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    // .trim() es vital para evitar el error de "Email invalid"
-    const email = document.getElementById('auth-email').value.trim();
+    // Capturamos el nombre de usuario (que antes era el email)
+    const username = document.getElementById('auth-email').value.trim(); 
     const password = document.getElementById('auth-password').value;
-    const isRegister = document.getElementById('auth-title').innerText.includes("REGISTRO");
+    const fullName = document.getElementById('auth-name').value.trim();
 
+    // Creamos un correo ficticio para que Supabase lo acepte internamente
+    const cleanUsername = username.replace(/\s+/g, '').toLowerCase();
+    const fakeEmail = `${cleanUsername}@gamestore.local`;
     try {
-        if (isRegister) {
-            // 1. Registro en el sistema de Autenticación de Supabase
-            const { data, error: authError } = await _supabase.auth.signUp({ email, password });
+        if (!isLoginMode) {
+            // US01: REGISTRO
+            const { data, error: authError } = await _supabase.auth.signUp({ 
+                email: fakeEmail, 
+                password,
+                options: { data: { full_name: fullName, user_nickname: username } }
+            });
+
             if (authError) throw authError;
 
-            // 2. Vinculación con tu tabla 'perfiles'
             if (data.user) {
                 const { error: profileError } = await _supabase
                     .from('perfiles')
-                    .insert([
-                        { 
-                            // IMPORTANTE: Usamos "Identificación" porque así se llama en tu imagen de Supabase
-                            Identificación: data.user.id, 
-                            nombre_completo: 'Nuevo Usuario', 
-                            rol: 'cliente',
-                            email: email // Asegúrate de haber creado esta columna en Supabase
-                        }
-                    ]);
+                    .insert([{ 
+                        id: data.user.id, 
+                        nombre_completo: fullName, 
+                        rol: 'cliente',
+                        email: fakeEmail // Guardamos el rastro del usuario
+                    }]);
                 
-                if (profileError) {
-                    console.error("Error al insertar en perfiles:", profileError.message);
-                    alert("Usuario creado, pero hubo un problema con tu perfil de base de datos.");
-                } else {
-                    alert("¡Registro exitoso! Bienvenido a GameStore.");
-                }
+                if (profileError) throw profileError;
+                alert("¡Cuenta creada con éxito!");
             }
         } else {
-            // Inicio de sesión (Login)
-            const { error: loginError } = await _supabase.auth.signInWithPassword({ email, password });
+            // US02: INICIO DE SESIÓN
+            const { error: loginError } = await _supabase.auth.signInWithPassword({ 
+                email: fakeEmail, 
+                password 
+            });
             if (loginError) throw loginError;
-            alert("¡Sesión iniciada con éxito!");
+            alert("¡Bienvenido de nuevo!");
         }
-        
+
         authModal.close();
         checkUser(); 
     } catch (err) {
-        // Si sale "Rate limit exceeded", recuerda usar un correo nuevo y modo incógnito
-        alert("Atención: " + err.message);
+        alert("Error: " + err.message);
     }
 });
 
-// --- EL RESTO DEL CÓDIGO (Cerrar sesión, CheckUser, etc.) SIGUE IGUAL ---
+// Controladores de apertura y cierre
+btnLogin?.addEventListener('click', () => authModal.showModal());
+closeAuth?.addEventListener('click', () => authModal.close());
+authModal?.addEventListener('click', (e) => {
+    if (e.target === authModal) authModal.close();
+});
 
-/**
- * Función para verificar el estado del usuario y cambiar botones
- */
 async function checkUser() {
     const { data: { user } } = await _supabase.auth.getUser();
 
@@ -315,19 +341,10 @@ async function checkUser() {
     }
 }
 
-async function cerrarSesion() {
-    const { error } = await _supabase.auth.signOut();
-    if (error) console.error("Error al salir:", error.message);
-    else {
-        alert("Sesión cerrada.");
-        checkUser();
-    }
-}
+checkUser();
 
-// Eventos de botones
-btnLogout?.addEventListener('click', cerrarSesion);
-
-document.addEventListener('DOMContentLoaded', () => {
-    if (typeof cargarIdiomaPrevio === 'function') cargarIdiomaPrevio();
+btnLogout?.addEventListener('click', async () => {
+    await _supabase.auth.signOut();
     checkUser();
+    alert("Sesión cerrada");
 });
