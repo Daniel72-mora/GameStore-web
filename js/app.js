@@ -235,7 +235,7 @@ if (searchForm) {
 }
 
 // ==========================================
-// 6. LÓGICA DE AUTENTICACIÓN (Sin Email)
+// 6. LÓGICA DE AUTENTICACIÓN Y RECUPERACIÓN (CORREGIDA)
 // ==========================================
 const authModal = document.getElementById('auth-modal');
 const authForm = document.getElementById('auth-form');
@@ -246,75 +246,97 @@ const btnLogin = document.getElementById('login-btn');
 const btnLogout = document.getElementById('logout-btn');
 const closeAuth = document.getElementById('close-auth');
 
+const recoveryLink = document.getElementById('link-recovery');
+const submitBtn = document.getElementById('auth-submit-btn');
+const recoveryBtn = document.getElementById('auth-recovery-btn');
+const passField = document.getElementById('auth-password');
+const labelPass = document.getElementById('label-pass');
+
 let isLoginMode = true; 
 
-// Cambiar entre Login y Registro
+// 1. Alternar entre Login y Registro
 toggleAuthBtn?.addEventListener('click', () => {
     isLoginMode = !isLoginMode;
     const isEn = langSelect.value === 'en';
 
-    authTitle.innerText = isLoginMode 
-        ? (isEn ? "LOGIN" : "INICIAR SESIÓN") 
-        : (isEn ? "REGISTER" : "REGISTRARSE");
-    
-    document.getElementById('auth-submit-btn').innerText = isLoginMode 
-        ? (isEn ? "Sign In" : "Entrar") 
-        : (isEn ? "Sign Up" : "Registrarse");
+    submitBtn.style.display = 'block';
+    recoveryBtn.style.display = 'none';
+    passField.style.display = 'block';
+    if(labelPass) labelPass.style.display = 'block';
 
-    toggleAuthBtn.innerText = isLoginMode 
-        ? (isEn ? "Don't have an account? Register" : "¿No tienes cuenta? Regístrate")
-        : (isEn ? "Already have an account? Login" : "¿Ya tienes cuenta? Inicia sesión");
-
+    authTitle.innerText = isLoginMode ? (isEn ? "LOGIN" : "INICIAR SESIÓN") : (isEn ? "REGISTER" : "REGISTRARSE");
+    submitBtn.innerText = isLoginMode ? (isEn ? "Sign In" : "Entrar") : (isEn ? "Sign Up" : "Registrarse");
     nameField.style.display = isLoginMode ? 'none' : 'block';
-    document.getElementById('auth-name').required = !isLoginMode;
 });
 
-// Enviar Formulario a Supabase
+// 2. Modo Recuperación
+recoveryLink?.addEventListener('click', (e) => {
+    e.preventDefault();
+    authTitle.innerText = "RECUPERAR POR CORREO";
+    submitBtn.style.display = 'none';
+    nameField.style.display = 'none';
+    passField.style.display = 'none'; 
+    if(labelPass) labelPass.style.display = 'none';
+    
+    recoveryBtn.style.display = 'block';
+});
+
+// 3. Enviar correo de recuperación (URL Fija para evitar el 'null')
+recoveryBtn?.addEventListener('click', async () => {
+    const email = document.getElementById('auth-email').value.trim();
+    if (!email) return alert("Ingresa tu correo.");
+
+    const { error } = await _supabase.auth.resetPasswordForEmail(email, {
+        // Usamos la URL exacta de tu Live Server en Bogotá
+        redirectTo: 'http://127.0.0.1:5500/index.html', 
+    });
+
+    if (error) alert("Error: " + error.message);
+    else alert("✅ Enlace enviado. Revisa tu bandeja de entrada y haz clic en el botón del correo.");
+});
+
+// 4. Capturar el regreso del usuario (Cuando hace clic en el correo)
+_supabase.auth.onAuthStateChange(async (event, session) => {
+    if (event === "PASSWORD_RECOVERY") {
+        const newPassword = prompt("Ingresa tu nueva contraseña (mínimo 6 caracteres):");
+        if (newPassword && newPassword.length >= 6) {
+            const { error } = await _supabase.auth.updateUser({ password: newPassword });
+            if (error) alert("Error al actualizar: " + error.message);
+            else {
+                alert("✅ ¡Éxito! Contraseña actualizada. Ahora puedes iniciar sesión.");
+                await _supabase.auth.signOut();
+                location.reload();
+            }
+        }
+    }
+});
+
+// 5. Lógica de Envío (Login / Registro)
 authForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
-    // Capturamos el nombre de usuario (que antes era el email)
-    const username = document.getElementById('auth-email').value.trim(); 
-    const password = document.getElementById('auth-password').value;
+    const email = document.getElementById('auth-email').value.trim(); 
+    const password = passField.value;
     const fullName = document.getElementById('auth-name').value.trim();
 
-    // Creamos un correo ficticio para que Supabase lo acepte internamente
-    const cleanUsername = username.replace(/\s+/g, '').toLowerCase();
-    const fakeEmail = `${cleanUsername}@gamestore.local`;
     try {
         if (!isLoginMode) {
-            // US01: REGISTRO
-            const { data, error: authError } = await _supabase.auth.signUp({ 
-                email: fakeEmail, 
-                password,
-                options: { data: { full_name: fullName, user_nickname: username } }
-            });
-
+            const { data, error: authError } = await _supabase.auth.signUp({ email, password });
             if (authError) throw authError;
 
             if (data.user) {
-                const { error: profileError } = await _supabase
-                    .from('perfiles')
-                    .insert([{ 
-                        id: data.user.id, 
-                        nombre_completo: fullName, 
-                        rol: 'cliente',
-                        email: fakeEmail // Guardamos el rastro del usuario
-                    }]);
-                
-                if (profileError) throw profileError;
-                alert("¡Cuenta creada con éxito!");
+                await _supabase.from('perfiles').insert([{ 
+                    id: data.user.id, 
+                    nombre_completo: fullName, 
+                    email: email,
+                    rol: 'cliente'
+                }]);
+                alert("¡Cuenta creada! Revisa tu email para confirmar.");
             }
         } else {
-            // US02: INICIO DE SESIÓN
-            const { error: loginError } = await _supabase.auth.signInWithPassword({ 
-                email: fakeEmail, 
-                password 
-            });
+            const { error: loginError } = await _supabase.auth.signInWithPassword({ email, password });
             if (loginError) throw loginError;
-            alert("¡Bienvenido de nuevo!");
+            alert("¡Bienvenido!");
         }
-
         authModal.close();
         checkUser(); 
     } catch (err) {
@@ -322,29 +344,14 @@ authForm?.addEventListener('submit', async (e) => {
     }
 });
 
-// Controladores de apertura y cierre
-btnLogin?.addEventListener('click', () => authModal.showModal());
-closeAuth?.addEventListener('click', () => authModal.close());
-authModal?.addEventListener('click', (e) => {
-    if (e.target === authModal) authModal.close();
-});
-
 async function checkUser() {
     const { data: { user } } = await _supabase.auth.getUser();
-
-    if (user) {
-        if (btnLogin) btnLogin.style.display = 'none';
-        if (btnLogout) btnLogout.style.display = 'block';
-    } else {
-        if (btnLogin) btnLogin.style.display = 'block';
-        if (btnLogout) btnLogout.style.display = 'none';
-    }
+    if (btnLogin) btnLogin.style.display = user ? 'none' : 'block';
+    if (btnLogout) btnLogout.style.display = user ? 'block' : 'none';
 }
 
-checkUser();
+btnLogin?.addEventListener('click', () => { isLoginMode = true; authModal.showModal(); });
+closeAuth?.addEventListener('click', () => authModal.close());
+btnLogout?.addEventListener('click', async () => { await _supabase.auth.signOut(); checkUser(); alert("Sesión cerrada"); });
 
-btnLogout?.addEventListener('click', async () => {
-    await _supabase.auth.signOut();
-    checkUser();
-    alert("Sesión cerrada");
-});
+checkUser();

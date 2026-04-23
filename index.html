@@ -190,11 +190,15 @@
                 <input type="text" id="auth-name" placeholder="Tu nombre">
             </section>
 
-            <label for="auth-email" data-es="Nombre de Usuario" data-en="Username">Nombre de Usuario</label>
-            <input type="text" id="auth-email" placeholder="Ej: DanielPro" required>
+            <label for="auth-email" data-es="Correo Electrónico" data-en="Email Address">Correo Electrónico</label>
+            <input type="email" id="auth-email" placeholder="ejemplo@correo.com" required>
             
-            <label for="auth-password" data-es="Contraseña" data-en="Password">Contraseña</label>
+            <label for="auth-password" id="label-pass" data-es="Contraseña" data-en="Password">Contraseña</label>
             <input type="password" id="auth-password" placeholder="••••••••" required minlength="6">
+
+            <button type="button" id="auth-recovery-btn" class="btn-success" style="display: none; margin-top: 10px;">
+                Enviar enlace de recuperación
+            </button>
             
             <button type="submit" id="auth-submit-btn" class="btn-success" data-es="Entrar" data-en="Sign In">
                 Entrar
