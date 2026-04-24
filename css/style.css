@@ -1065,4 +1065,77 @@ dialog[open] {
 
 .auth-options a:hover {
     text-decoration: underline;
+
+ /* --- ESTILOS DEL CARRITO LATERAL --- */
+
+.cart-drawer {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 350px;
+    height: 100vh; /* Ocupa toda la altura */
+    margin: 0;
+    border: none;
+    background: var(--bg-color, #d43030); /* Asegúrate de que coincida con tu tema */
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Cuando el dialog se abre, se muestra */
+.cart-drawer[open] {
+    display: flex;
+}
+
+/* Animación de entrada */
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+.cart-drawer[open] {
+    animation: slideIn 0.3s forwards;
+}
+
+/* Header del carrito */
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #444;
+    padding-bottom: 15px;
+}
+
+/* Lista de productos dentro del carrito */
+.cart-items-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin: 15px 0;
+}
+
+/* Diseño de cada producto en la lista */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+}
+
+/* Footer (Total y botón) */
+.cart-footer {
+    border-top: 1px solid #444;
+    padding-top: 15px;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}  
+ 
 }

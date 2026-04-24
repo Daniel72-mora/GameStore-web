@@ -369,9 +369,38 @@ async function checkUser() {
             applyFiltersAndSort(); 
         } else {
             catalogSection.style.display = 'none';
+
+           // Delegación de eventos en el contenedor padre
+document.getElementById('game-catalog').addEventListener('click', (e) => {
+    // Verificamos si lo que se tocó fue el botón de "Añadir"
+    if (e.target.classList.contains('btn-add-cart-premium')) {
+        
+        // Buscamos la tarjeta padre (el article)
+        const tarjeta = e.target.closest('.game-card-premium');
+        
+        // Extraemos la información del juego
+        const juego = {
+            id: Date.now(), 
+            titulo: tarjeta.querySelector('h3').textContent, // El título del juego
+            precio: tarjeta.querySelector('.price').textContent // El precio
+        };
+
+        // Guardamos en el carrito
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        carrito.push(juego);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        
+        // Actualizamos el contador visual
+        document.getElementById('cart-count').textContent = carrito.length;
+        
+        alert("¡" + juego.titulo + " añadido al carrito!");
+    }
+}); 
         }
     }
 }
+
+
 
 btnLogin?.addEventListener('click', () => { isLoginMode = true; authModal.showModal(); });
 closeAuth?.addEventListener('click', () => authModal.close());
