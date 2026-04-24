@@ -41,7 +41,7 @@ strong {
 
 
 :root {
-    --primary-neon: #00f2ff;
+    --primary-neon: #731486;
     --secondary-neon: #7000ff;
     --text-white: #ffffff;
 }
@@ -77,8 +77,6 @@ strong {
     text-align: center;
     max-width: 800px;
     padding: 20px;
-    width: 100%;
-    height: 100%;
 }
 
 .badge {
@@ -168,7 +166,7 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Ajusta el 0.5 para más o menos oscuridad */
+    background: rgba(253, 252, 252, 0.5); /* Ajusta el 0.5 para más o menos oscuridad */
     z-index: 1;
 }
 
@@ -213,6 +211,13 @@ body {
     background-position: left center; /* Prioriza el lado izquierdo oscuro para el texto */
     background-repeat: no-repeat;     /* Evita que se duplique */
     background-attachment: fixed;     /* Efecto sutil al hacer scroll (opcional) */
+
+    img {
+    max-width: 30%; /* Ajusta este porcentaje a tu gusto */
+    height: auto;   /* Mantiene la proporción para que no se deforme */
+    display: block;
+    margin: 0 auto; /* La centra horizontalmente */
+}
 }
 
 /* --- Contenedor de Texto (Para alinearlo a la izquierda) --- */
@@ -236,7 +241,7 @@ h1 {
 }
 
 .highlight {
-    color: #00f2ff; /* Neón Azul */
+    color: #7429a0; /* Neón Azul */
     text-shadow: 0 0 15px rgba(0, 242, 255, 0.7);
 }
 
@@ -265,7 +270,7 @@ p {
 }
 
 .btn-primary {
-    background: #00f2ff;
+    background: #440657;
     color: #000;
 }
 
@@ -317,9 +322,9 @@ p {
     --nav-light: rgba(253, 253, 253, 0.9);
     
     /* Colores de Acento ( Premium / Neon) */
-    --accent-cyan: #00F2FE;
-    --accent-cyan-hover: #4FACFE;
-    --accent-glow: 0 0 15px rgba(0, 242, 254, 0.5);
+    --accent-cyan: oklab(50.051% 0.14881 -0.16773 / 0.575);
+    --accent-cyan-hover: #e1c9e6;
+    --accent-glow: 0 0 15px rgba(222, 161, 228, 0.5);
     
     /* Espaciado y Layout */
     --container-width: 1200px;
@@ -514,12 +519,12 @@ body {
 .hero-content {
     max-width: 650px;
     color: #FFFFFF;
+    /* Añade estas líneas */
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center;     /* Centra verticalmente */
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    flex-direction: column;
+    align-items: center;  /* Centra horizontalmente */
+    text-align: center;    /* Centra el texto dentro de las etiquetas */
+    margin: 0 auto;       /* Centra el bloque completo si tiene un max-width */
 }
 
 .hero-content h1 {
@@ -536,6 +541,8 @@ body {
 }
 
 .btn-premium-primary {
+    display: table;    /* Permite usar márgenes automáticos respetando el contenido */
+    margin: 0 auto;    /* Centra horizontalmente */
     background-color: var(--accent-cyan);
     color: var(--bg-dark);
     padding: 15px 35px;
@@ -545,12 +552,13 @@ body {
     text-transform: uppercase;
     box-shadow: var(--accent-glow);
     transition: all 0.3s ease;
+
 }
 
 .btn-premium-primary:hover {
     background-color: var(--accent-cyan-hover);
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(0, 242, 254, 0.7);
+    box-shadow: 0 5px 20px rgba(188, 145, 218, 0.7);
 }
 
 /* --- CATÁLOGO & GAME CARDS PREMIUM (GRID & ANIMATIONS) --- */
@@ -942,7 +950,7 @@ dialog[open] {
 
 /* Botón Añadir al Carrito (Púrpura Neón) */
 .btn-success {
-    background: linear-gradient(135deg, #6e45e2 0%, #88d3ce 100%);
+    background: linear-gradient(135deg, #6e45e2 0%, #e915d7 100%);
     color: #fff;
     box-shadow: 0 4px 15px rgba(110, 69, 226, 0.4);
 }
@@ -986,6 +994,7 @@ dialog[open] {
     gap: 15px;
     margin-top: 15px;
     justify-content: flex-end;
+    
 }
 
 .premium-select-filter {
@@ -1049,16 +1058,11 @@ dialog[open] {
 }
 
 .auth-options a {
-    color: #88d3ce;
+    color: #e71ab4;
     font-size: 0.85rem;
     text-decoration: none;
 }
 
 .auth-options a:hover {
     text-decoration: underline;
-}
-
-/* Oculta la sección completa del catálogo al cargar */
-.catalog-section {
-    display: none;
 }
