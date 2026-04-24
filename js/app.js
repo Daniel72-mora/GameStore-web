@@ -71,7 +71,7 @@ function renderStore(games) {
             </figure>
             <section class="card-info-premium">
                 <h3>${game.name}</h3>
-                <p class="platforms">${game.platforms?.slice(0, 2).map(p => p.platform.name).join(' | ') || 'PC'}</p>
+                <p class="platforms">${game.platforms?.slice(0, 4).map(p => p.platform.name).join(' | ') || 'PC'}</p>
                 <p class="price">$${randomPrice} <abbr title="Peso Colombiano">COP</abbr></p>
             </section>
         `;
@@ -178,56 +178,65 @@ modal?.addEventListener('click', (e) => {
 });
 
 // ==========================================
-// 5. IMPLEMENTACIÓN US08 Y US09 (Filtros y Orden)
+// 5. IMPLEMENTACIÓN US07, US08 Y US09 (Filtros y Orden)
 // ==========================================
 
-// Referencias a los nuevos elementos del DOM
+// Referencias a los elementos del DOM (Incluyendo el nuevo filtro de plataforma)
 const genreFilter = document.getElementById('genre-filter');
 const sortFilter = document.getElementById('sort-filter');
+const platformFilter = document.getElementById('platform-filter'); // US07
 
 /**
- * Esta función extiende la funcionalidad de Felipe sin modificar su fetch original.
- * Redefinimos ligeramente la llamada para incluir los nuevos parámetros.
+ * Función unificada para aplicar todos los criterios de búsqueda y filtrado.
  */
 async function applyFiltersAndSort() {
     const searchTerm = searchInput ? searchInput.value : '';
     const genre = genreFilter ? genreFilter.value : '';
     const sort = sortFilter ? sortFilter.value : '';
+    const platform = platformFilter ? platformFilter.value : ''; // Captura la plataforma
 
     try {
-        // Construimos la URL con los parámetros adicionales para la API
+        // 1. Construcción de parámetros para la API de RAWG
         const genreParam = genre ? `&genres=${genre}` : '';
-        const sortParam = sort ? `&ordering=${sort}` : '';
+        const platformParam = platform ? `&platforms=${platform}` : '';
         const queryParam = searchTerm ? `&search=${searchTerm}` : '';
         
-        const response = await fetch(`${BASE_URL}?key=${RAWG_KEY}&page_size=12${queryParam}${genreParam}${sortParam}`);
+        // El ordenamiento nativo de la API (Popularidad, Novedades, Nombre)
+        const sortParam = sort ? `&ordering=${sort}` : '';
+        
+        const url = `${BASE_URL}?key=${RAWG_KEY}&page_size=12${queryParam}${genreParam}${platformParam}${sortParam}`;
+        
+        const response = await fetch(url);
         
         if (!response.ok) throw new Error("Error en la API al filtrar");
         
         const data = await response.json();
         
-        // Usamos la función de renderizado que ya existe en el código de Felipe
-        renderStore(data.results);
+        // 2. Lógica para US09: Ordenamiento por Precio (Simulado)
+        // Como el precio no viene de la API, si el usuario elige "Precio", 
+        // deberíamos ordenar los resultados aquí antes de renderizar.
+        let gamesToRender = data.results;
+
+        // Nota: Para ordenar por precio real, necesitarías asignar un precio 
+        // fijo a cada juego en lugar de uno aleatorio en el renderStore.
+        
+        renderStore(gamesToRender);
         
     } catch (error) {
-        console.error("Error en US08/US09:", error);
+        console.error("Error en US07/08/09:", error);
     }
 }
 
-// Escuchadores de eventos para los filtros
-if (genreFilter) {
-    genreFilter.addEventListener('change', applyFiltersAndSort);
-}
-
-if (sortFilter) {
-    sortFilter.addEventListener('change', applyFiltersAndSort);
-}
+// Escuchadores de eventos para detectar cambios en los filtros
+if (genreFilter) genreFilter.addEventListener('change', applyFiltersAndSort);
+if (sortFilter) sortFilter.addEventListener('change', applyFiltersAndSort);
+if (platformFilter) platformFilter.addEventListener('change', applyFiltersAndSort); // Listener US07
 
 /**
- * Ajuste para que la búsqueda también respete los filtros activos
- * Reasignamos el evento submit del formulario original
+ * Reasignamos el evento submit del formulario para que respete los filtros
  */
 if (searchForm) {
+    searchForm.removeEventListener('submit', fetchRawgGames); // Limpiamos evento anterior si existe
     searchForm.addEventListener('submit', (e) => {
         e.preventDefault();
         applyFiltersAndSort();
