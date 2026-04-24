@@ -88,19 +88,26 @@
             
             <header class="section-header">
                 <nav class="catalog-filters" aria-label="Filtros de búsqueda">
-                <select id="genre-filter" class="premium-select-filter">
-                    <option value="" data-es="Todos los Géneros" data-en="All Genres">Todos los Géneros</option>
-                    <option value="action">Acción</option>
-                    <option value="adventure">Aventura</option>
-                    <option value="role-playing-games-rpg">RPG</option>
-                    <option value="shooter">Shooter</option>
-                </select>
+                    <select id="genre-filter" class="premium-select-filter">
+                        <option value="" data-es="Todos los Géneros" data-en="All Genres">Todos los Géneros</option>
+                        <option value="action">Acción</option>
+                        <option value="adventure">Aventura</option>
+                        <option value="role-playing-games-rpg">RPG</option>
+                        <option value="shooter">Shooter</option>
+                    </select>
 
+                    <select id="platform-filter" class="premium-select-filter">
+                        <option value="" data-es="Todas las Plataformas" data-en="All Platforms">Todas las Plataformas</option>
+                        <option value="4">PC (Windows)</option>
+                        <option value="18,187">PlayStation</option>
+                        <option value="1,186">Xbox</option>
+                    </select>
                     <select id="sort-filter" class="premium-select-filter">
                         <option value="" data-es="Ordenar por..." data-en="Sort by...">Ordenar por...</option>
                         <option value="-rating" data-es="Más Populares" data-en="Most Popular">Más Populares</option>
                         <option value="-released" data-es="Novedades" data-en="Newest">Novedades</option>
                         <option value="name" data-es="Nombre (A-Z)" data-en="Name (A-Z)">Nombre (A-Z)</option>
+                        <option value="-added" data-es="Recientes" data-en="Recently Added">Recientes</option>
                     </select>
                 </nav>
                 
@@ -138,7 +145,7 @@
         </address>
     </footer>
 
-    <dialog id="game-detail-modal" class="modal-premium">
+<dialog id="game-detail-modal" class="modal-premium">
     <article class="detail-full-card cart-container">
         <button id="close-modal" class="btn-close-top">×</button>
         
