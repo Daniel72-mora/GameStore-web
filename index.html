@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GameStore Web | Semántica Pura Premium (Cero Div, Cero Span)</title>
+
+    <meta name="author" content="Daniel, Astrid, Karol, Maricella, Felipe">
     
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -91,7 +93,7 @@
     <main>
         <section class="hero" id="inicio" aria-labelledby="hero-title">
             <header class="hero-content container">
-               <img class="kenedy" src="./css/imagen 3.jpeg" alt="logo">
+               <img class="kenedy" src="./css/kenedy.jpeg" alt="logo">
             </header>
         </section>
 
@@ -217,10 +219,19 @@
             </nav>
         </form>
     </article>
+<dialog id="cart-modal" class="modal-premium">
+    <article class="auth-card">
+        <button id="close-cart" class="btn-close-top">×</button>
+        <h2 class="font-oswald">TU CARRITO</h2>
+        <ul id="cart-items-list" style="list-style: none; padding: 0;"></ul>
+        <hr>
+        <p><strong>Total: </strong><span id="cart-total">$0</span></p>
+        <button id="btn-finalizar-compra" class="btn-success">Finalizar Compra</button>
+    </article>
 </dialog>
+
+
     <script src="js/theme.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/app.js"></script>
-    <script src="js/cart.js"></script>
-</body>
 </html>

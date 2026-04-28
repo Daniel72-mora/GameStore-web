@@ -407,3 +407,77 @@ closeAuth?.addEventListener('click', () => authModal.close());
 btnLogout?.addEventListener('click', async () => { await _supabase.auth.signOut(); checkUser(); alert("Sesión cerrada"); });
 
 checkUser();
+
+// Referencias al Carrito
+const cartModal = document.getElementById('cart-modal');
+const btnOpenCart = document.getElementById('cart-btn');
+const btnCloseCart = document.getElementById('close-cart');
+const cartItemsList = document.getElementById('cart-items-list');
+const cartTotalElement = document.getElementById('cart-total');
+
+// Función única para renderizar
+function renderCart() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    if (!cartItemsList) return;
+    
+    cartItemsList.innerHTML = "";
+    let total = 0;
+
+    carrito.forEach((item, index) => {
+        // Asegurar que item.titulo exista
+        const titulo = item.titulo || "Producto sin nombre";
+        const precio = parseFloat(String(item.precio).replace(/[^0-9]/g, '')) || 0;
+        total += precio;
+
+        const li = document.createElement('li');
+        li.className = "cart-item-row";
+        li.innerHTML = `
+            <p><strong>${titulo}</strong><br><small>$${precio.toLocaleString()}</small></p>
+            <button onclick="removeGame(${index})" style="color: #ff4d4d;">Quitar</button>
+        `;
+        cartItemsList.appendChild(li);
+    });
+
+    if (cartTotalElement) cartTotalElement.textContent = `$${total.toLocaleString()}`;
+}
+
+// Lógica de clics
+document.addEventListener('click', (e) => {
+    // Añadir al carrito
+    if (e.target.classList.contains('btn-add-cart-premium')) {
+        const article = e.target.closest('article');
+        const titulo = article.querySelector('h3').innerText;
+        const precio = article.querySelector('.price').innerText;
+
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        carrito.push({ titulo, precio });
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        
+        renderCart();
+        alert(titulo + " añadido.");
+    }
+
+    // Finalizar compra
+    if (e.target.id === 'btn-finalizar-compra') {
+        localStorage.removeItem('carrito');
+        renderCart();
+        alert("¡Compra finalizada!");
+        cartModal.close();
+    }
+});
+
+// Abrir/Cerrar
+btnOpenCart?.addEventListener('click', () => {
+    renderCart();
+    cartModal?.showModal();
+});
+
+btnCloseCart?.addEventListener('click', () => cartModal?.close());
+
+// Quitar item
+window.removeGame = (index) => {
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    carrito.splice(index, 1);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    renderCart();
+};

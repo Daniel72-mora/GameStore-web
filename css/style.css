@@ -5,9 +5,7 @@
     padding: 0;
 }
 
-ul, ol, menu {
-    list-style: none;
-}
+ul, ol, menu { list-style: none; }
 
 a {
     text-decoration: none;
@@ -22,316 +20,36 @@ button, input, select {
     cursor: pointer;
 }
 
-/* Address por defecto usa cursiva */
-address {
-    font-style: normal; 
-}
-
-/* Abbr por defecto usa borde punteado inferior */
-abbr {
-    text-decoration: none;
-    cursor: help;
-}
-
-/* Strong por defecto usa negrita */
-strong {
-    font-weight: 700;
-}
-
-
-
-:root {
-    --primary-neon: #731486;
-    --secondary-neon: #7000ff;
-    --text-white: #ffffff;
-}
-
-.gaming-hero {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--text-white);
-    background-image: url('http://googleusercontent.com/image_generation_content/0');
-    background-size: cover;
-    background-position: center;
-}
-
-/* Capa oscura para que el texto sea legible */
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%);
-    z-index: 1;
-}
-
-.hero-container {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 800px;
-    padding: 20px;
-}
-
-.badge {
-    background: var(--secondary-neon);
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    box-shadow: 0 0 15px var(--secondary-neon);
-}
-
-h1 {
-    font-size: 5rem;
-    margin: 20px 0;
-    line-height: 0.9;
-    text-transform: uppercase;
-}
-
-.highlight {
-    color: var(--primary-neon);
-    text-shadow: 0 0 20px var(--primary-neon);
-}
-
-p {
-    font-size: 1.2rem;
-    margin-bottom: 40px;
-    opacity: 0.9;
-}
-
-/* Botones con estilo Gaming */
-.btn {
-    padding: 15px 35px;
-    text-decoration: none;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 4px;
-    transition: 0.3s;
-    display: inline-block;
-    margin: 10px;
-}
-
-.btn-glitch {
-    background: var(--primary-neon);
-    color: #000;
-    box-shadow: 4px 0 0 var(--secondary-neon);
-}
-
-.btn-glitch:hover {
-    box-shadow: -4px 0 0 var(--secondary-neon);
-    transform: scale(1.05);
-}
-
-.btn-outline {
-    border: 2px solid var(--text-white);
-    color: var(--text-white);
-}
-
-.btn-outline:hover {
-    background: var(--text-white);
-    color: #000;
-}
-
-
-.hero-gaming {
-    /* Vinculación de la imagen */
-   background-image: url('fondo.png');
-    
-    /* Ajustes para que se vea perfecta */
-    background-size: cover;           /* Cubre todo el espacio sin estirarse */
-    background-position: center;      /* Centra la imagen */
-    background-repeat: no-repeat;     /* Evita que se duplique */
-    
-    /* Altura y alineación */
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    color: white;
-}
-
-/* La capa oscura para que el texto resalte sobre tu imagen */
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(12, 12, 12, 0.5); /* Ajusta el 0.5 para más o menos oscuridad */
-    z-index: 1;
-}
-
-.container {
-    position: relative;
-    z-index: 2; /* Pone el texto por encima de la imagen y la capa oscura */
-    text-align: center;
-}
-
-
-
-/* === ESTILOS GLOBALES === */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif; /* Usamos fuente moderna (requiere importación o sistema) */
-}
-
-body {
-    background-color: #050505;
-    color: white;
-}
-
-/* === SECCIÓN HERO === */
-.hero-gaming {
-    /* Altura y Alineación de Contenido */
-    min-height: 100vh;
-    display: flex;
-    align-items: center; /* Centrado vertical */
-    justify-content: center; /* Centrado horizontal del contenedor */
-    position: relative;
-    padding: 2rem;
-    overflow: hidden;
-
-    /* == VINCULACIÓN DE LA IMAGEN DE FONDO (imagen1.png) == */
-    /* Asegúrate de que imagen1.png esté en la misma carpeta */
-    background-image: url('imagen1.png');
-    
-    /* Propiedades clave de adaptabilidad */
-    background-size: cover;           /* CUBRE todo sin deformar */
-    background-position: left center; /* Prioriza el lado izquierdo oscuro para el texto */
-    background-repeat: no-repeat;     /* Evita que se duplique */
-    background-attachment: fixed;     /* Efecto sutil al hacer scroll (opcional) */
-
-    img {
-    max-width: 30%; /* Ajusta este porcentaje a tu gusto */
-    height: auto;   /* Mantiene la proporción para que no se deforme */
-    display: block;
-    margin: 0 auto; /* La centra horizontalmente */
-}
-}
-
-/* --- Contenedor de Texto (Para alinearlo a la izquierda) --- */
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2; /* Por encima de la imagen de fondo */
-    text-align: left; /* Alineado a la izquierda para aprovechar el espacio oscuro */
-    padding-left: 5%; /* Pequeña separación del borde */
-}
-
-/* --- Estilos de Texto --- */
-h1 {
-    font-size: clamp(2rem, 5vw, 4rem); /* Fuente fluida según pantalla */
-    line-height: 1.1;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    font-weight: 900;
-}
-
-.highlight {
-    color: #7429a0; /* Neón Azul */
-    text-shadow: 0 0 15px rgba(0, 242, 255, 0.7);
-}
-
-p {
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
-    line-height: 1.7;
-    max-width: 550px; /* Limitamos ancho de p para lectura */
-    margin-bottom: 2.5rem;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* --- Botones --- */
-.actions {
-    display: flex;
-    gap: 15px;
-}
-
-.btn {
-    display: inline-block;
-    padding: 1rem 2rem;
-    font-weight: 700;
-    text-decoration: none;
-    text-transform: uppercase;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
-.btn-primary {
-    background: #440657;
-    color: #000;
-}
-
-.btn-primary:hover {
-    background: #fff;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 242, 255, 0.4);
-}
-
-.btn-secondary {
-    border: 2px solid white;
-    color: white;
-}
-
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* === MEDIA QUERY (MÓVIL) === */
-@media (max-width: 768px) {
-    .container {
-        text-align: center; /* Centramos texto en móvil */
-        padding-left: 0;
-    }
-    
-    .actions {
-        justify-content: center; /* Centramos botones */
-    }
-}
-
-
-
-
-
-
+address { font-style: normal; }
+abbr { text-decoration: none; cursor: help; }
+strong { font-weight: 700; }
 
 /* --- VARIABLES PREMIUM (Cian Eléctrico + Morado Neón) --- */
 :root {
+    --primary-neon: #731486;
+    --secondary-neon: #7000ff;
+    
     /* Paleta Oscura (Predeterminada) */
     --bg-dark: #0A0A0A;
     --text-dark: #F5F5F5;
     --card-dark: #1A1A1A;
-    --nav-dark: rgba(10, 10, 10, 0.9); /* Transparente para Glassmorphism */
+    --nav-dark: rgba(10, 10, 10, 0.9);
     
-    /* Paleta Clara (Theme Toggle) */
+    /* Paleta Clara */
     --bg-light: #FDFDFD;
     --text-light: #121212;
     --card-light: #FFFFFF;
     --nav-light: rgba(253, 253, 253, 0.9);
     
-    /* Colores de Acento ( Premium / Neon) */
+    /* Colores de Acento */
     --accent-cyan: oklab(50.051% 0.14881 -0.16773 / 0.575);
     --accent-cyan-hover: #e1c9e6;
     --accent-glow: 0 0 15px rgba(222, 161, 228, 0.5);
     
-    /* Espaciado y Layout */
     --container-width: 1200px;
     --border-radius-card: 12px;
 }
 
-/* --- APLICACIÓN DE TEMAS --- */
 body.dark-theme {
     --bg-color: var(--bg-dark);
     --text-color: var(--text-dark);
@@ -364,17 +82,16 @@ body {
     letter-spacing: 1px;
 }
 
-/* LA CLASE CONTENEDORA ES VITAL (Se aplica a etiquetas semánticas) */
 .container {
     width: 90%;
     max-width: var(--container-width);
     margin: 0 auto;
 }
 
-/* --- HEADER PREMIUM (Semántica: Fixed & Glassmorphism) --- */
+/* --- HEADER PREMIUM --- */
 .main-header {
     background: var(--nav-bg);
-    backdrop-filter: blur(10px); /* Efecto cristal */
+    backdrop-filter: blur(10px);
     position: fixed;
     top: 0;
     width: 100%;
@@ -396,10 +113,19 @@ body {
     color: var(--text-color);
 }
 
-/* Estilo para strong dentro del logo (Reemplazo de span) */
 .logo strong {
     color: var(--accent-cyan);
     text-shadow: var(--accent-glow);
+}
+
+/* Imagen del logo subido */
+.kenedy {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;    /* Llena el espacio recortando si es necesario */
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
 }
 
 .nav-controls {
@@ -424,18 +150,6 @@ body {
     font-weight: 700;
 }
 
-.nav-links a.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: var(--accent-cyan);
-    border-radius: 2px;
-    box-shadow: var(--accent-glow);
-}
-
 .nav-links a:hover {
     color: var(--accent-cyan);
 }
@@ -453,16 +167,14 @@ body {
     border-radius: 4px;
 }
 
-.theme-btn {
+.theme-btn, .cart-btn {
     font-size: 1.4rem;
 }
 
 .cart-btn {
     position: relative;
-    font-size: 1.4rem;
 }
 
-/* Estilo para strong icon dentro del carrito (Reemplazo de span) */
 .cart-btn .icon {
     font-weight: 700;
 }
@@ -471,7 +183,6 @@ body {
     text-shadow: var(--accent-glow);
 }
 
-/* Estilo para strong badge dentro del carrito (Reemplazo de span) */
 .badge {
     position: absolute;
     top: -5px;
@@ -479,7 +190,7 @@ body {
     background: var(--accent-cyan);
     color: var(--bg-dark);
     font-size: 0.75rem;
-    font-weight: 700; /* Aseguramos negrita de strong */
+    font-weight: 700;
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -489,7 +200,6 @@ body {
     box-shadow: var(--accent-glow);
 }
 
-/* BOTÓN DE LOGIN (Outline Premium) */
 .btn-premium-outline {
     border: 2px solid var(--accent-cyan);
     color: var(--accent-cyan);
@@ -505,43 +215,69 @@ body {
     box-shadow: var(--accent-glow);
 }
 
-/* --- HERO SECTION PREMIUM (Full Width & Glow - CERO Div, CERO Span) --- */
-.hero {
-    height: 80vh;
+/* --- HERO SECTION PREMIUM --- */
+.hero-gaming {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    /* Gradiente directamente sobre hero */
-    margin-top: 80px; /* Compensa la navbar fija */
+    padding: 2rem;
+    overflow: hidden;
+    background-image: url('imagen1.png'); /* Reemplaza por la ruta de tu fondo real si tienes otro */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.7);
+    z-index: 1;
+}
+
+.hero {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin-top: 80px;
     display: flex;
     align-items: center;
 }
 
 .hero-content {
-    max-width: 650px;
-    color: #FFFFFF;
-    /* Añade estas líneas */
+    max-width: 100% !important;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;  /* Centra horizontalmente */
-    text-align: center;    /* Centra el texto dentro de las etiquetas */
-    margin: 0 auto;       /* Centra el bloque completo si tiene un max-width */
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .hero-content h1 {
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 5vw, 4rem);
     line-height: 1.1;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
+    font-weight: 900;
 }
 
 .hero-content p {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
     margin-bottom: 2.5rem;
     opacity: 0.9;
 }
 
 .btn-premium-primary {
-    display: table;    /* Permite usar márgenes automáticos respetando el contenido */
-    margin: 0 auto;    /* Centra horizontalmente */
+    display: table;
+    margin: 0 auto;
     background-color: var(--accent-cyan);
     color: var(--bg-dark);
     padding: 15px 35px;
@@ -551,7 +287,6 @@ body {
     text-transform: uppercase;
     box-shadow: var(--accent-glow);
     transition: all 0.3s ease;
-
 }
 
 .btn-premium-primary:hover {
@@ -560,7 +295,7 @@ body {
     box-shadow: 0 5px 20px rgba(188, 145, 218, 0.7);
 }
 
-/* --- CATÁLOGO & GAME CARDS PREMIUM (GRID & ANIMATIONS) --- */
+/* --- CATÁLOGO & GAME CARDS PREMIUM --- */
 .catalog-section {
     padding: 6rem 0;
 }
@@ -572,12 +307,6 @@ body {
     margin-bottom: 4rem;
 }
 
-.section-header h2 {
-    font-size: 2.2rem;
-    color: var(--text-color);
-}
-
-/* BARRA DE BÚSQUEDA PREMIUM */
 .search-bar-premium {
     position: relative;
     display: flex;
@@ -609,14 +338,12 @@ body {
     opacity: 0.6;
 }
 
-/* GRILLA DE JUEGOS PREMIUM */
 .game-grid-premium {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
 }
 
-/* CARD PREMIUM (Efecto Elevado & Glow - CERO Div, CERO Span) */
 .game-card-premium {
     background: var(--card-bg);
     border-radius: var(--border-radius-card);
@@ -627,12 +354,10 @@ body {
     flex-direction: column;
 }
 
-.game-card-premium:hover,
-.game-card-premium:focus {
+.game-card-premium:hover {
     transform: translateY(-10px);
     border-color: var(--accent-cyan);
     box-shadow: 0 15px 30px rgba(0, 242, 254, 0.2);
-    outline: none;
 }
 
 .card-media-premium {
@@ -648,12 +373,10 @@ body {
     transition: transform 0.5s ease;
 }
 
-/* Efecto zoom al pasar mouse */
 .game-card-premium:hover .card-media-premium img {
     transform: scale(1.05);
 }
 
-/* CAPA SUPERPUESTA PARA EL BOTÓN (+ Añadir - Semántica Avanzada) */
 .card-overlay-aside {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -661,15 +384,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0; /* Oculto por defecto */
+    opacity: 0;
     transition: opacity 0.3s ease;
 }
 
 .game-card-premium:hover .card-overlay-aside {
-    opacity: 1; /* Visible en hover */
+    opacity: 1;
 }
 
-/* Botón Añadir Premium (Cian & Bold) */
 .btn-add-cart-premium {
     background-color: var(--accent-cyan);
     color: var(--bg-dark);
@@ -688,7 +410,6 @@ body {
     background-color: var(--accent-cyan-hover);
 }
 
-/* INFO DE LA CARD (Sección semántica) */
 .card-info-premium {
     padding: 1.5rem;
     display: flex;
@@ -702,14 +423,13 @@ body {
     margin-bottom: 2px;
 }
 
-/* Estilos para abbr dentro de info (Reemplazo de span) */
 .platforms abbr, .price abbr {
     font-size: 0.85rem;
     opacity: 0.6;
     letter-spacing: 1px;
     text-transform: uppercase;
-    text-decoration: none; /* Quitamos borde punteado */
-    cursor: help; /* Mantenemos cursor help */
+    text-decoration: none;
+    cursor: help;
 }
 
 .price {
@@ -717,11 +437,11 @@ body {
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
     font-size: 1.5rem;
-    margin-top: auto; /* Empuja el precio al fondo */
+    margin-top: auto;
     text-shadow: var(--accent-glow);
 }
 
-/* --- FOOTER PREMIUM (Usando Address semántica) --- */
+/* --- FOOTER PREMIUM --- */
 .main-footer-premium {
     background: var(--nav-bg);
     padding: 3rem 0;
@@ -744,80 +464,7 @@ body {
     text-shadow: var(--accent-glow);
 }
 
-/* Estilos Vista Detalle - Astrid */
-.modal-premium {
-    border: none;
-    border-radius: 1rem;
-    background: #faf4f4;
-    color: #fff;
-    padding: 0;
-    max-width: 700px;
-    width: 90%;
-    box-shadow: 0 0 50px rgba(243, 238, 238, 0.5);
-}
-
-.modal-premium::backdrop {
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
-}
-
-.detail-banner {
-    position: relative;
-    margin: 0;
-}
-
-.detail-banner img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-.btn-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 10;
-    background: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-}
-
-.detail-body {
-    padding: 2rem;
-}
-
-.game-meta {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    color: #00ff96; /* Color acento */
-}
-
-.description-text {
-    line-height: 1.6;
-    color: #ccc;
-}
-
-/* --- RESPONSIVE DESIGN PREMIMUM (Karol - CSS Avanzado necesario) --- */
-@media (max-width: 992px) {
-    .hero-content h1 { font-size: 2.8rem; }
-}
-
-@media (max-width: 768px) {
-    .nav-links { display: none; } /* Karol: Menú hamburguesa necesario */
-    .hero { height: 60vh; text-align: center; }
-    .hero-content h1 { font-size: 2.2rem; }
-    .search-bar-premium input { width: 100%; }
-    .footer-grid { flex-direction: column; gap: 1rem; }
-}
-
-/* El Modal ocupa todo el visor */
+/* --- MODALES & VISTA DETALLE --- */
 .modal-premium {
     width: 100vw;
     height: 100vh;
@@ -832,7 +479,16 @@ body {
     justify-content: center;
 }
 
-/* El fondo animado en el Backdrop */
+dialog:not([open]) {
+    display: none !important;
+}
+
+dialog[open] {
+    display: flex;
+    flex-direction: column;
+    z-index: 9999;
+}
+
 .modal-premium::backdrop {
     background: 
         linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
@@ -843,19 +499,6 @@ body {
     backdrop-filter: blur(8px);
 }
 
-/* Forzar que el modal desaparezca totalmente si no tiene el atributo 'open' */
-dialog:not([open]) {
-    display: none !important;
-}
-
-/* Asegurar que el modal abierto use el contexto de visualización correcto */
-dialog[open] {
-    display: flex;
-    flex-direction: column;
-    z-index: 9999; /* Asegura que esté por encima de todo el catálogo */
-}
-
-/* Tarjeta centralizada y grande */
 .detail-full-card {
     background: rgba(15, 15, 15, 0.95);
     width: 85%;
@@ -869,7 +512,6 @@ dialog[open] {
     animation: fadeInUp 0.5s ease;
 }
 
-/* Imagen de cabecera tipo Banner */
 .detail-hero {
     position: relative;
     width: 100%;
@@ -892,7 +534,6 @@ dialog[open] {
     text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
 }
 
-/* Contenido */
 .detail-content-full {
     padding: 0 40px 40px 40px;
 }
@@ -904,7 +545,6 @@ dialog[open] {
     margin: 20px 0;
 }
 
-/* Botón cerrar arriba */
 .btn-close-top {
     position: absolute;
     top: 20px;
@@ -923,7 +563,6 @@ dialog[open] {
 
 .btn-close-top:hover { background: #4e073d; }
 
-/* Contenedor de botones en el detalle */
 .detail-footer-full {
     display: flex;
     gap: 20px;
@@ -931,7 +570,6 @@ dialog[open] {
     justify-content: flex-start;
 }
 
-/* Estilo Base para ambos botones */
 .btn-success, .btn-danger {
     padding: 14px 28px;
     border: none;
@@ -948,7 +586,6 @@ dialog[open] {
     letter-spacing: 1px;
 }
 
-/* Botón Añadir al Carrito (Púrpura Neón) */
 .btn-success {
     background: linear-gradient(135deg, #6e45e2 0%, #e915d7 100%);
     color: #fff;
@@ -956,7 +593,7 @@ dialog[open] {
 }
 
 .btn-success::before {
-    content: "🛒"; /* O un icono de FontAwesome si usas */
+    content: "🛒";
     font-size: 1.2rem;
 }
 
@@ -966,7 +603,6 @@ dialog[open] {
     filter: brightness(1.1);
 }
 
-/* Botón Volver al Catálogo (Bordeado / Ghost) */
 .btn-danger {
     background: transparent;
     color: #e0e0e0;
@@ -984,17 +620,12 @@ dialog[open] {
     transform: translateX(-5px);
 }
 
-/* Efecto de pulsación */
-.btn-success:active, .btn-danger:active {
-    transform: scale(0.95);
-}
-
+/* --- FILTROS --- */
 .catalog-filters {
     display: flex;
     gap: 15px;
     margin-top: 35px;
     justify-content: flex-end;
-    
 }
 
 .premium-select-filter {
@@ -1018,6 +649,7 @@ dialog[open] {
     color: #fff;
 }
 
+/* --- AUTENTICACIÓN --- */
 .auth-card {
     background: #121212;
     padding: 40px;
@@ -1065,20 +697,19 @@ dialog[open] {
 
 .auth-options a:hover {
     text-decoration: underline;
-<<<<<<< HEAD
+}
 
- /* --- ESTILOS DEL CARRITO LATERAL --- */
-
+/* --- ESTILOS DEL CARRITO LATERAL --- */
 .cart-drawer {
     position: fixed;
     right: 0;
     top: 0;
     width: 350px;
-    height: 100vh; /* Ocupa toda la altura */
+    height: 100vh;
     margin: 0;
     border: none;
-    background: var(--bg-color, #d43030); /* Asegúrate de que coincida con tu tema */
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    background: var(--bg-dark);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -1086,22 +717,16 @@ dialog[open] {
     transition: transform 0.3s ease-in-out;
 }
 
-/* Cuando el dialog se abre, se muestra */
 .cart-drawer[open] {
     display: flex;
+    animation: slideIn 0.3s forwards;
 }
 
-/* Animación de entrada */
 @keyframes slideIn {
     from { transform: translateX(100%); }
     to { transform: translateX(0); }
 }
 
-.cart-drawer[open] {
-    animation: slideIn 0.3s forwards;
-}
-
-/* Header del carrito */
 .cart-header {
     display: flex;
     justify-content: space-between;
@@ -1110,25 +735,22 @@ dialog[open] {
     padding-bottom: 15px;
 }
 
-/* Lista de productos dentro del carrito */
 .cart-items-list {
     flex-grow: 1;
     overflow-y: auto;
     margin: 15px 0;
 }
 
-/* Diseño de cada producto en la lista */
 .cart-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #f3f3f3;
 }
 
-/* Footer (Total y botón) */
 .cart-footer {
-    border-top: 1px solid #444;
+    border-top: 1px solid #fff9f9;
     padding-top: 15px;
 }
 
@@ -1137,13 +759,39 @@ dialog[open] {
     justify-content: space-between;
     font-size: 1.2rem;
     margin-bottom: 15px;
-}  
- 
-=======
 }
 
-.kenedy{
-    width: auto;
-    height: auto;
->>>>>>> 7e131d8e48778dbaa2da9d1585e00cfa17d0d930
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 992px) {
+    .hero-content h1 { font-size: 2.8rem; }
 }
+
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero { height: 60vh; text-align: center; }
+    .hero-content h1 { font-size: 2.2rem; }
+    .search-bar-premium input { width: 100%; }
+    .footer-grid { flex-direction: column; gap: 1rem; }
+}
+
+.cart-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cart-item-row p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Scrollbar personalizado para el carrito */
+#cart-items-list::-webkit-scrollbar {
+    width: 5px;
+}
+#cart-items-list::-webkit-scrollbar-thumb {
+    background: var(--accent-cyan);
+    border-radius: 10px;
+} 
