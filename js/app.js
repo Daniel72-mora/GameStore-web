@@ -418,51 +418,73 @@ const cartTotalElement = document.getElementById('cart-total');
 // Función única para renderizar
 function renderCart() {
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const cartItemsList = document.getElementById('cart-items-list');
+    const cartTotalElement = document.getElementById('cart-total');
+    
     if (!cartItemsList) return;
     
     cartItemsList.innerHTML = "";
-    let total = 0;
+    let totalGeneral = 0;
 
     carrito.forEach((item, index) => {
-        // Asegurar que item.titulo exista
-        const titulo = item.titulo || "Producto sin nombre";
-        const precio = parseFloat(String(item.precio).replace(/[^0-9]/g, '')) || 0;
-        total += precio;
+        const subtotal = item.precio * item.cantidad;
+        totalGeneral += subtotal;
 
         const li = document.createElement('li');
         li.className = "cart-item-row";
         li.innerHTML = `
-            <p><strong>${titulo}</strong><br><small>$${precio.toLocaleString()}</small></p>
-            <button onclick="removeGame(${index})" style="color: #ff4d4d;">Quitar</button>
+            <p><strong>${item.titulo}</strong><br>
+               <small>$${item.precio.toLocaleString()} c/u</small>
+            </p>
+            <div class="quantity-controls" style="display: flex; gap: 10px; align-items: center;">
+                <button onclick="updateQuantity(${index}, -1)" class="btn-qty">-</button>
+                <span>${item.cantidad}</span>
+                <button onclick="updateQuantity(${index}, 1)" class="btn-qty">+</button>
+            </div>
+            <p><strong>$${subtotal.toLocaleString()}</strong></p>
         `;
         cartItemsList.appendChild(li);
     });
 
-    if (cartTotalElement) cartTotalElement.textContent = `$${total.toLocaleString()}`;
+    if (cartTotalElement) cartTotalElement.textContent = `$${totalGeneral.toLocaleString()}`;
+    
+    // Actualizar el badge del icono del carrito
+    const badge = document.getElementById('cart-count');
+    if (badge) {
+        const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+        badge.textContent = totalItems;
+    }
 }
 
 // Lógica de clics
 document.addEventListener('click', (e) => {
-    // Añadir al carrito
     if (e.target.classList.contains('btn-add-cart-premium')) {
         const article = e.target.closest('article');
         const titulo = article.querySelector('h3').innerText;
-        const precio = article.querySelector('.price').innerText;
+        const precioTexto = article.querySelector('.price').innerText;
+        // Extraemos solo el número para cálculos
+        const precioNumerico = parseFloat(precioTexto.replace(/[^0-9]/g, ''));
 
         let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        carrito.push({ titulo, precio });
-        localStorage.setItem('carrito', JSON.stringify(carrito));
         
-        renderCart();
-        alert(titulo + " añadido.");
-    }
+        // US17: Buscar si el juego ya está en el carrito
+        const index = carrito.findIndex(item => item.titulo === titulo);
 
-    // Finalizar compra
-    if (e.target.id === 'btn-finalizar-compra') {
-        localStorage.removeItem('carrito');
+        if (index !== -1) {
+            // Si ya existe, aumentamos la cantidad
+            carrito[index].cantidad++;
+        } else {
+            // Si es nuevo, lo agregamos con cantidad inicial 1
+            carrito.push({ 
+                titulo, 
+                precio: precioNumerico, 
+                cantidad: 1 
+            });
+        }
+
+        localStorage.setItem('carrito', JSON.stringify(carrito));
         renderCart();
-        alert("¡Compra finalizada!");
-        cartModal.close();
+        alert(`${titulo} actualizado en el carrito.`);
     }
 });
 
@@ -481,3 +503,18 @@ window.removeGame = (index) => {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     renderCart();
 };
+
+window.updateQuantity = (index, change) => {
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    
+    carrito[index].cantidad += change;
+
+    // Si la cantidad es menor a 1, eliminamos el producto (Criterio de Aceptación 2)
+    if (carrito[index].cantidad < 1) {
+        carrito.splice(index, 1);
+    }
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    renderCart(); // Actualiza el total automáticamente (Criterio de Aceptación 3)
+};
+

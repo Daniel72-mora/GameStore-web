@@ -795,3 +795,21 @@ dialog[open] {
     background: var(--accent-cyan);
     border-radius: 10px;
 } 
+
+.btn-qty {
+    background: var(--accent-cyan);
+    color: var(--bg-dark);
+    border-radius: 4px;
+    width: 25px;
+    height: 25px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.btn-qty:hover {
+    background: var(--accent-cyan-hover);
+    box-shadow: var(--accent-glow);
+}
