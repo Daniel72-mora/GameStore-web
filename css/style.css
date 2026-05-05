@@ -1302,3 +1302,545 @@ dialog[open] {
 .fade-in {
     animation: fadeInUp 0.5s ease forwards;
 }
+
+/* ==========================================
+   US19 - PAYMENT FORM STYLES
+   ========================================== */
+.payment-form-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-light);
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.payment-form-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--accent-cyan-hover);
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pay-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pay-field-group label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.pay-input {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    padding: 12px;
+    color: var(--input-color);
+    border-radius: 8px;
+    outline: none;
+    font-size: 0.95rem;
+    transition: border-color 0.3s, background 0.4s ease;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.pay-input:focus {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 3px rgba(115, 20, 134, 0.15);
+}
+
+.pay-input::placeholder {
+    color: var(--text-muted);
+}
+
+.pay-input-error {
+    border-color: #ef4444 !important;
+    background: rgba(239, 68, 68, 0.05) !important;
+}
+
+.pay-input-error:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+.pay-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.btn-pay {
+    margin-top: 0.5rem;
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 14px 24px;
+}
+
+.pay-simulated-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
+/* ==========================================
+   US21 - PURCHASE SUCCESS ACTIONS
+   ========================================== */
+.purchase-success-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.purchase-success-actions .btn-success,
+.purchase-success-actions .btn-danger {
+    min-width: 180px;
+}
+
+/* ==========================================
+   US24-27 - ADMIN CRUD FORM
+   ========================================== */
+.admin-form-card {
+    background: var(--card-bg);
+    border: 1px solid var(--accent-cyan);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.admin-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.admin-form-header h4 {
+    font-size: 1.1rem;
+    color: var(--accent-cyan-hover);
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+}
+
+.btn-admin-cancel {
+    background: var(--hover-overlay);
+    color: var(--text-color);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.btn-admin-cancel:hover {
+    background: var(--close-hover);
+    color: #fff;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.admin-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.admin-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.admin-form-field.full-width {
+    grid-column: 1 / -1;
+}
+
+.admin-form-field label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.admin-form-field input,
+.admin-form-field textarea,
+.admin-form-field select {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    padding: 10px 12px;
+    color: var(--input-color);
+    border-radius: 8px;
+    outline: none;
+    font-size: 0.9rem;
+    font-family: 'Montserrat', sans-serif;
+    transition: border-color 0.3s, background 0.4s ease;
+}
+
+.admin-form-field input:focus,
+.admin-form-field textarea:focus,
+.admin-form-field select:focus {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 3px rgba(115, 20, 134, 0.15);
+}
+
+.admin-form-field textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.admin-form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+}
+
+/* Admin table scrollable */
+.admin-table-scroll {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.admin-actions-cell {
+    display: flex;
+    gap: 6px;
+    white-space: normal;
+}
+
+.btn-admin-edit,
+.btn-admin-delete {
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.btn-admin-edit {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.btn-admin-edit:hover {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.5);
+}
+
+.btn-admin-delete {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-admin-delete:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+/* ==========================================
+   US28 - ADMIN ORDER STATUS SELECT
+   ========================================== */
+.admin-status-select {
+    background: var(--input-bg);
+    color: var(--input-color);
+    border: 1px solid var(--input-border);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.admin-status-select:focus {
+    border-color: var(--input-focus);
+    outline: none;
+}
+
+.admin-status-select option {
+    background: var(--option-bg);
+    color: var(--option-color);
+}
+
+/* Order status extended */
+.order-status.processing {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+}
+
+.order-status.cancelled {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+/* ==========================================
+   US29 - ADMIN USERS MANAGEMENT
+   ========================================== */
+.admin-users-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius);
+    padding: 1.2rem;
+    text-align: center;
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 900;
+    font-family: 'Oswald', sans-serif;
+    color: var(--accent-cyan-hover);
+    text-shadow: var(--accent-glow);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.role-badge.role-admin {
+    background: rgba(115, 20, 134, 0.2);
+    color: var(--accent-cyan-hover);
+    border: 1px solid rgba(115, 20, 134, 0.3);
+}
+
+.role-badge.role-cliente {
+    background: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.btn-toggle-role {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: var(--hover-overlay);
+    border: 1px solid var(--border-medium);
+    color: var(--text-color);
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.btn-toggle-role:hover {
+    background: rgba(115, 20, 134, 0.15);
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan-hover);
+}
+
+/* ==========================================
+   RESPONSIVE - NEW FEATURES
+   ========================================== */
+@media (max-width: 768px) {
+    .pay-row {
+        grid-template-columns: 1fr;
+    }
+    .payment-form-section {
+        padding: 1rem;
+    }
+    .admin-form-grid {
+        grid-template-columns: 1fr;
+    }
+    .admin-form-actions {
+        flex-direction: column;
+    }
+    .admin-form-actions .btn-success,
+    .admin-form-actions .btn-danger {
+        width: 100%;
+        text-align: center;
+    }
+    .purchase-success-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    .purchase-success-actions .btn-success,
+    .purchase-success-actions .btn-danger {
+        width: 100%;
+    }
+    .admin-users-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-pay {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+}    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    text-align: center;
+    border: 1px solid var(--border-subtle);
+    transition: transform 0.3s ease, background 0.4s ease, border-color 0.4s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-cyan);
+}
+
+.stat-number {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-cyan-hover);
+    text-shadow: var(--accent-glow);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.3rem;
+}
+
+/* Role badges */
+.role-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.role-badge.role-admin {
+    background: rgba(115, 20, 134, 0.2);
+    color: var(--accent-cyan-hover);
+}
+
+.role-badge.role-cliente {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+}
+
+/* Toggle role button */
+.btn-toggle-role {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    background: rgba(115, 20, 134, 0.1);
+    border: 1px solid rgba(115, 20, 134, 0.3);
+    color: var(--text-color);
+}
+
+.btn-toggle-role:hover {
+    background: rgba(115, 20, 134, 0.2);
+    border-color: rgba(115, 20, 134, 0.5);
+}
+
+/* ==========================================
+   US37 - EXCHANGE RATE DISPLAY
+   ========================================== */
+.exchange-rate-bar {
+    text-align: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: var(--hover-overlay);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background 0.4s ease;
+}
+
+.exchange-rate-bar strong {
+    color: var(--accent-cyan-hover);
+}
+
+/* ==========================================
+   TOAST NOTIFICATIONS
+   ========================================== */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: toastIn 0.4s ease, toastOut 0.4s ease 2.6s forwards;
+    max-width: 350px;
+}
+
+.toast-success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.toast-error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.toast-info {
+    background: linear-gradient(135deg, #6e45e2, #e915d7);
+}
+
+@keyframes toastIn {
+    from { opacity: 0; transform: translateX(100px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(100px); }
+}
+
+/* ==========================================
+   ADMIN TAB CONTENT
+   ========================================== */
+.admin-tab-content {
+    animation: fadeInUp 0.3s ease forwards;
+}
