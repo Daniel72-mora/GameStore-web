@@ -3,51 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameStore Web | Semántica Pura Premium (Cero Div, Cero Span)</title>
+    <title>GameStore Web | Tu Próxima Aventura Comienza Aquí</title>
 
     <meta name="author" content="Daniel, Astrid, Karol, Maricella, Felipe">
-    
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="dark-theme">
 
-<!-- imagen 1 -->
+<!-- ==========================================
+     HERO SECTION
+     ========================================== -->
 <header class="hero-gaming">
     <section class="hero-overlay" aria-hidden="true"></section>
-    
-     <section class="hero" id="inicio" aria-labelledby="hero-title">
-            <header class="hero-content container">
-                <h1 id="hero-title" class="font-oswald" data-es="TU PRÓXIMA AVENTURA COMIENZA AQUÍ" data-en="YOUR NEXT ADVENTURE STARTS HERE">
-                    TU PRÓXIMA AVENTURA COMIENZA AQUÍ
-                </h1>
-                <p data-es="Explora, descubre y domina. Los mejores títulos a precios inmejorables." data-en="Explore, discover, and dominate. The best titles at unbeatable prices.">
-                    "Deja de ser un espectador. Conviértete en el protagonista.".<br>
-                     Explora, descubre y domina. Los mejores títulos a precios inmejorables
-            
-                </p>
-                <a href="#catalogo" class="btn-premium-primary" data-es="EXPLORAR CATÁLOGO" data-en="EXPLORE CATALOG">
-                    EXPLORAR CATÁLOGO
-                </a>
-            </header>
-        </section>
+
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+        <header class="hero-content container">
+            <h1 id="hero-title" class="font-oswald" data-es="TU PRÓXIMA AVENTURA COMIENZA AQUÍ" data-en="YOUR NEXT ADVENTURE STARTS HERE">
+                TU PRÓXIMA AVENTURA COMIENZA AQUÍ
+            </h1>
+            <p data-es="Explora, descubre y domina. Los mejores títulos a precios inmejorables." data-en="Explore, discover, and dominate. The best titles at unbeatable prices.">
+                Explora, descubre y domina. Los mejores títulos a precios inmejorables.
+            </p>
+            <a href="#catalogo" class="btn-premium-primary" data-es="EXPLORAR CATÁLOGO" data-en="EXPLORE CATALOG">
+                EXPLORAR CATÁLOGO
+            </a>
+        </header>
+    </section>
 </header>
-    
-    <header class="main-header">
+
+<!-- ==========================================
+     NAVBAR
+     ========================================== -->
+<header class="main-header">
     <nav class="navbar container" aria-label="Navegación principal">
-        
+
         <a href="index.html" class="logo" aria-label="Ir al inicio">
-    <img src="./css/logo.png" alt="GameStore Logo" class="logo-img-header">
-</a>
-        
+            <img src="./css/logo.png" alt="GameStore Logo" class="logo-img-header">
+            <strong class="logo-text">GAMESTORE</strong>
+        </a>
+
         <menu class="nav-controls">
             <ul class="nav-links">
-                </ul>
-            
+                <li><button id="nav-catalog" class="nav-link-btn active" data-es="Catálogo" data-en="Catalog">Catálogo</button></li>
+                <li><button id="nav-orders" class="nav-link-btn" data-es="Mis Pedidos" data-en="My Orders">Mis Pedidos</button></li>
+                <li><button id="nav-favorites" class="nav-link-btn" data-es="Favoritos" data-en="Favorites">Favoritos</button></li>
+                <li><button id="nav-admin" class="nav-link-btn" style="display:none" data-es="Admin" data-en="Admin">Admin</button></li>
+            </ul>
+
             <menu class="action-buttons" aria-label="Herramientas de usuario">
                 <li>
                     <select id="lang-select" class="premium-select" aria-label="Seleccionar idioma">
@@ -55,185 +62,234 @@
                         <option value="en">EN</option>
                     </select>
                 </li>
-                
+
                 <li>
-                    <button id="theme-toggle" class="icon-btn theme-btn" aria-label="Cambiar modo de color"></button>
+                    <button id="theme-toggle" class="icon-btn theme-btn" aria-label="Cambiar modo de color">☀️</button>
                 </li>
-                
+
                 <li>
                     <button id="cart-btn" class="icon-btn cart-btn" aria-label="Ver carrito de compras">
                         <strong class="icon">🛒</strong>
-                        <strong id="cart-count" class="badge">0</strong>
+                        <strong id="cart-count" class="badge" style="display:none">0</strong>
                     </button>
                 </li>
-                <dialog id="cart-modal" class="modal-premium">
-    <article class="auth-card">
-        <button id="close-cart" class="btn-close-top">×</button>
-        <h2 class="font-oswald">TU CARRITO</h2>
-        <ul id="cart-items-list" style="list-style: none; padding: 0;">
-            
-            </ul>
-        <hr>
-        <p><strong>Total: </strong><span id="cart-total">$0</span></p>
-        <button id="checkout-btn" class="btn-success">Finalizar Compra</button>
-    </article>
-</dialog>
                 <li>
-                    <button id="login-btn" class="btn-premium-outline" data-es="Entrar" data-en="Login">
-                        Entrar
-                    </button>
-                    <button id="logout-btn" class="btn-premium-outline" style="display: none;" data-es="Salir" data-en="Logout">
-                        Salir
-                    </button>
+                    <button id="login-btn" class="btn-premium-outline" data-es="Entrar" data-en="Login">Entrar</button>
+                    <button id="logout-btn" class="btn-premium-outline" style="display:none" data-es="Salir" data-en="Logout">Salir</button>
+                </li>
+                <li>
+                    <button id="hamburger-btn" class="hamburger-btn" aria-label="Menú">☰</button>
                 </li>
             </menu>
         </menu>
 
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="mobile-menu">
+            <button class="nav-link-btn" onclick="switchView('catalog')">Catálogo</button>
+            <button class="nav-link-btn" onclick="switchView('orders')">Mis Pedidos</button>
+            <button class="nav-link-btn" onclick="switchView('favorites')">Favoritos</button>
+        </div>
     </nav>
 </header>
 
-    <main>
-        <section class="hero" id="inicio" aria-labelledby="hero-title">
-            <header class="hero-content container">
-               <img class="kenedy" src="./css/kenedy.jpeg" alt="logo">
-            </header>
+<!-- ==========================================
+     MAIN CONTENT
+     ========================================== -->
+<main>
+    <!-- SECCIÓN KENEDY -->
+    <section class="kenedy-section container" id="kenedy-section">
+        <header class="kenedy-content">
+            <img class="kenedy" src="./css/kenedy.jpeg" alt="Kenedy - GameStore Web">
+        </header>
+    </section>
+
+    <!-- CATÁLOGO (vista por defecto) -->
+    <section class="catalog-section container view-section" id="catalog-section" style="display:block" aria-labelledby="catalog-title">
+        <header class="section-header">
+            <h2 id="catalog-title" class="font-oswald section-title" data-es="Catálogo de Videojuegos" data-en="Video Game Catalog">Catálogo de Videojuegos</h2>
+
+            <form class="search-bar-premium" aria-label="Búsqueda de juegos">
+                <span class="search-icon">🔍</span>
+                <input type="search" data-placeholder-es="Buscar tu próximo juego..." data-placeholder-en="Search your next game..." placeholder="Buscar tu próximo juego..." aria-label="Buscar videojuegos">
+            </form>
+        </header>
+
+        <nav class="catalog-filters" aria-label="Filtros de búsqueda">
+            <select id="genre-filter" class="premium-select-filter">
+                <option value="" data-es="Todos los Géneros" data-en="All Genres">Todos los Géneros</option>
+                <option value="action" data-es="Acción" data-en="Action">Acción</option>
+                <option value="adventure" data-es="Aventura" data-en="Adventure">Aventura</option>
+                <option value="role-playing-games-rpg">RPG</option>
+                <option value="shooter">Shooter</option>
+                <option value="strategy" data-es="Estrategia" data-en="Strategy">Estrategia</option>
+                <option value="sports" data-es="Deportes" data-en="Sports">Deportes</option>
+                <option value="puzzle">Puzzle</option>
+                <option value="racing" data-es="Carreras" data-en="Racing">Carreras</option>
+            </select>
+
+            <select id="platform-filter" class="premium-select-filter">
+                <option value="" data-es="Todas las Plataformas" data-en="All Platforms">Todas las Plataformas</option>
+                <option value="4" data-es="PC (Windows)" data-en="PC (Windows)">PC (Windows)</option>
+                <option value="18,187">PlayStation</option>
+                <option value="1,186">Xbox</option>
+                <option value="7,8">Nintendo</option>
+            </select>
+
+            <select id="sort-filter" class="premium-select-filter">
+                <option value="" data-es="Ordenar por..." data-en="Sort by...">Ordenar por...</option>
+                <option value="-rating" data-es="Más Populares" data-en="Most Popular">Más Populares</option>
+                <option value="-released" data-es="Novedades" data-en="Newest">Novedades</option>
+                <option value="name" data-es="Nombre (A-Z)" data-en="Name (A-Z)">Nombre (A-Z)</option>
+                <option value="-added" data-es="Recientes" data-en="Recently Added">Recientes</option>
+            </select>
+        </nav>
+
+        <section id="game-catalog" class="game-grid-premium" aria-label="Lista de videojuegos">
+            <!-- Games rendered by JS -->
         </section>
 
-        <section class="catalog-section container" id="catalogo" aria-labelledby="catalog-title">
-            
-            <header class="section-header">
-                <nav class="catalog-filters" aria-label="Filtros de búsqueda">
-                <select id="genre-filter" class="premium-select-filter">
-                    <option value="" data-es="Todos los Géneros" data-en="All Genres">Todos los Géneros</option>
-                    <option value="action">Acción</option>
-                    <option value="adventure">Aventura</option>
-                    <option value="role-playing-games-rpg">RPG</option>
-                    <option value="shooter">Shooter</option>
-                </select>
+        <div class="load-more-container">
+            <button id="load-more-btn" class="load-more-btn" style="display:none" data-es="Cargar más" data-en="Load More">Cargar más</button>
+        </div>
+    </section>
 
-                    <select id="platform-filter" class="premium-select-filter">
-                        <option value="" data-es="Todas las Plataformas" data-en="All Platforms">Todas las Plataformas</option>
-                        <option value="4">PC (Windows)</option>
-                        <option value="18,187">PlayStation</option>
-                        <option value="1,186">Xbox</option>
-                    </select>
-                    <select id="sort-filter" class="premium-select-filter">
-                        <option value="" data-es="Ordenar por..." data-en="Sort by...">Ordenar por...</option>
-                        <option value="-rating" data-es="Más Populares" data-en="Most Popular">Más Populares</option>
-                        <option value="-released" data-es="Novedades" data-en="Newest">Novedades</option>
-                        <option value="name" data-es="Nombre (A-Z)" data-en="Name (A-Z)">Nombre (A-Z)</option>
-                        <option value="-added" data-es="Recientes" data-en="Recently Added">Recientes</option>
-                    </select>
-                </nav>
-                
-                <form class="search-bar-premium" aria-label="Búsqueda de juegos">
-                    <input type="search" placeholder="Buscar tu próximo juego..." aria-label="Buscar videojuegos">
-                    <button type="submit" class="search-icon">🔍</button>
-                </form>
-            </header>
+    <!-- PEDIDOS -->
+    <section class="view-section container" id="orders-section" aria-labelledby="orders-title">
+        <h2 id="orders-title" class="font-oswald section-title" data-es="Historial de Compras" data-en="Order History">Historial de Compras</h2>
+        <article id="orders-list">
+            <!-- Orders rendered by JS -->
+        </article>
+    </section>
 
-            <section id="game-catalog" class="game-grid-premium" aria-label="Lista de videojuegos">
-                
-                <article class="game-card-premium" tabindex="0">
-                    <figure class="card-media-premium">
-                        <aside class="card-overlay-aside">
-                            <button class="btn-add-cart-premium" aria-label="Añadir Halo Infinite al carrito">
-                                + Añadir
-                            </button>
-                        </aside>
-                    </figure>
-                    <section class="card-info-premium">
-                        <h3>Halo Infinite</h3>
-                        <p class="platforms"><abbr title="Personal Computer">PC</abbr> | <abbr title="Xbox Series X/S">XBOX</abbr></p>
-                        <p class="price">$199.900 <abbr title="Peso Colombiano">COP</abbr></p>
-                    </section>
-                </article>
+    <!-- FAVORITOS -->
+    <section class="view-section container" id="favorites-section" aria-labelledby="favorites-title">
+        <h2 id="favorites-title" class="font-oswald section-title" data-es="Mis Favoritos" data-en="My Favorites">Mis Favoritos</h2>
+        <article id="favorites-list" class="favorites-grid">
+            <!-- Favorites rendered by JS -->
+        </article>
+    </section>
 
-            </section>
-        </section>
-    </main>
+    <!-- ADMIN -->
+    <section class="view-section container" id="admin-section" aria-labelledby="admin-title">
+        <h2 id="admin-title" class="font-oswald section-title" data-es="Panel de Administración" data-en="Administration Panel">Panel de Administración</h2>
+        <article id="admin-content">
+            <!-- Admin rendered by JS -->
+        </article>
+    </section>
 
-    <footer class="main-footer-premium">
-        <address class="container footer-grid">
-            <p>&copy; 2026 GameStore Web. Proyecto Final - Sprint 1.</p>
-            <p class="slogan-footer font-oswald">LEVEL UP.</p>
-        </address>
-    </footer>
+    <!-- CHECKOUT -->
+    <section class="view-section container" id="checkout-section" aria-labelledby="checkout-title">
+        <article id="checkout-content">
+            <!-- Checkout rendered by JS -->
+        </article>
+    </section>
+</main>
 
+<!-- ==========================================
+     FOOTER
+     ========================================== -->
+<footer class="main-footer-premium">
+    <address class="container footer-grid">
+        <nav class="footer-links">
+            <button onclick="switchView('catalog')" data-es="Catálogo" data-en="Catalog">Catálogo</button>
+            <button onclick="switchView('orders')" data-es="Mis Pedidos" data-en="My Orders">Mis Pedidos</button>
+            <button onclick="switchView('favorites')" data-es="Favoritos" data-en="Favorites">Favoritos</button>
+        </nav>
+        <p class="slogan-footer font-oswald">LEVEL UP.</p>
+        <p>&copy; <span data-es="2026 GameStore Web. Proyecto Final - Sprint 1." data-en="2026 GameStore Web. Final Project - Sprint 1.">2026 GameStore Web. Proyecto Final - Sprint 1.</span></p>
+    </address>
+</footer>
+
+<!-- ==========================================
+     MODAL: DETALLE DEL VIDEOJUEGO
+     ========================================== -->
 <dialog id="game-detail-modal" class="modal-premium">
-    <article class="detail-full-card cart-container">
+    <article class="detail-full-card">
         <button id="close-modal" class="btn-close-top">×</button>
-        
+
         <header class="detail-hero">
             <img id="modal-img" src="" alt="Banner del juego">
-            <h2 id="modal-title" class="font-oswald title-large"></h2>
+            <h2 id="modal-title" class="font-oswald" style="position:absolute;bottom:20px;left:30px;font-size:2.5rem;color:white;text-shadow:2px 2px 10px rgba(0,0,0,0.8);"></h2>
         </header>
-        
+
         <section class="detail-content-full">
-            <aside class="game-quick-info">
-                <p><strong>Rating:</strong> <span id="modal-rating"></span> ⭐</p>
-                <p><strong>Fecha:</strong> <span id="modal-date"></span></p>
+            <aside class="detail-quick-info">
+                <p><strong data-es="Rating:" data-en="Rating:">Rating:</strong> <span id="modal-rating"></span></p>
+                <p><strong data-es="Fecha:" data-en="Date:">Fecha:</strong> <span id="modal-date"></span></p>
+                <p><strong data-es="Precio:" data-en="Price:">Precio:</strong> <span id="modal-price" style="color:var(--accent-cyan-hover);font-weight:700;"></span></p>
             </aside>
-            
-            <div id="modal-description" class="description-full"></div>
-            
+
+            <section id="modal-platforms" style="margin:10px 0;"></section>
+            <section id="modal-genres" style="margin:10px 0;"></section>
+
+            <h3 class="detail-subtitle" data-es="Descripción" data-en="Description">Descripción</h3>
+            <article id="modal-description" class="description-full" style="font-size:0.95rem;line-height:1.7;color:#ccc;margin:10px 0;"></article>
+
+            <section id="modal-screenshots"></section>
+
             <footer class="detail-footer-full">
-                <button class="btn-success">Añadir al Carrito</button>
-                <button id="btn-cerrar-inferior" class="btn-danger">Volver al Catálogo</button>
+                <button id="modal-add-cart-btn" class="btn-success" data-es="Añadir al Carrito" data-en="Add to Cart">🛒 Añadir al Carrito</button>
+                <button id="modal-fav-btn" class="btn-fav">🤍 Favorito</button>
+                <button id="btn-cerrar-inferior" class="btn-danger" data-es="Volver al Catálogo" data-en="Back to Catalog">⬅ Volver al Catálogo</button>
             </footer>
         </section>
     </article>
 </dialog>
 
-<dialog id="auth-modal" class="modal-premium">
-    <article class="auth-card">
-        <button id="close-auth" class="btn-close-top" aria-label="Cerrar">×</button>
-        
-        <h2 class="font-oswald text-gradient" id="auth-title" data-es="INICIAR SESIÓN" data-en="LOGIN">INICIAR SESIÓN</h2>
-        
-        <form id="auth-form" class="form-premium">
-            <section id="name-field-group" style="display: none;">
-                <label for="auth-name" data-es="Nombre Completo" data-en="Full Name">Nombre Completo</label>
-                <input type="text" id="auth-name" placeholder="Tu nombre">
-            </section>
-
-            <label for="auth-email" data-es="Correo Electrónico" data-en="Email Address">Correo Electrónico</label>
-            <input type="email" id="auth-email" placeholder="ejemplo@correo.com" required>
-            
-            <label for="auth-password" id="label-pass" data-es="Contraseña" data-en="Password">Contraseña</label>
-            <input type="password" id="auth-password" placeholder="••••••••" required minlength="6">
-
-            <button type="button" id="auth-recovery-btn" class="btn-success" style="display: none; margin-top: 10px;">
-                Enviar enlace de recuperación
-            </button>
-            
-            <button type="submit" id="auth-submit-btn" class="btn-success" data-es="Entrar" data-en="Sign In">
-                Entrar
-            </button>
-            
-            <nav class="auth-options">
-                <button type="button" id="toggle-auth-mode" class="btn-link">
-                    ¿No tienes cuenta? Regístrate
-                </button>
-                <button type="button" id="link-recovery" class="btn-link" data-es="Olvidé mi contraseña" data-en="Forgot password?">
-                    Olvidé mi contraseña
-                </button>
-            </nav>
-        </form>
-    </article>
+<!-- ==========================================
+     MODAL: CARRITO (UN SOLO MODAL, FUERA DE TODO)
+     ========================================== -->
 <dialog id="cart-modal" class="modal-premium">
-    <article class="auth-card">
+    <article class="cart-container">
         <button id="close-cart" class="btn-close-top">×</button>
-        <h2 class="font-oswald">TU CARRITO</h2>
-        <ul id="cart-items-list" style="list-style: none; padding: 0;"></ul>
-        <hr>
-        <p><strong>Total: </strong><span id="cart-total">$0</span></p>
-        <button id="btn-finalizar-compra" class="btn-success">Finalizar Compra</button>
+        <h2 class="font-oswald" style="text-align:center;margin-bottom:15px;" data-es="TU CARRITO" data-en="YOUR CART">TU CARRITO</h2>
+        <ul id="cart-items-list" style="list-style:none;padding:0;"></ul>
+        <hr style="border-color:rgba(255,255,255,0.1);margin:15px 0;">
+        <p style="text-align:right;"><strong data-es="Total:" data-en="Total:">Total:</strong> <span id="cart-total" style="color:var(--accent-cyan-hover);font-size:1.2rem;font-weight:700;">$0</span></p>
+        <button id="checkout-btn" class="btn-success" style="width:100%;margin-top:15px;" data-es="Finalizar Compra" data-en="Checkout">Finalizar Compra</button>
     </article>
 </dialog>
 
+<!-- ==========================================
+     MODAL: AUTENTICACIÓN
+     ========================================== -->
+<dialog id="auth-modal" class="modal-premium">
+    <article class="auth-card">
+        <button id="close-auth" class="btn-close-top" aria-label="Cerrar">×</button>
 
-    <script src="js/theme.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/app.js"></script>
+        <h2 class="font-oswald" style="text-align:center;background:linear-gradient(135deg,#6e45e2,#e915d7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;" id="auth-title" data-es="INICIAR SESIÓN" data-en="LOGIN">INICIAR SESIÓN</h2>
+
+        <form id="auth-form" class="form-premium">
+            <section id="name-field-group" style="display:none;">
+                <label for="auth-name" data-es="Nombre Completo" data-en="Full Name">Nombre Completo</label>
+                <input type="text" id="auth-name" placeholder="Tu nombre" data-placeholder-es="Tu nombre" data-placeholder-en="Your name">
+            </section>
+
+            <label for="auth-email" data-es="Correo Electrónico" data-en="Email Address">Correo Electrónico</label>
+            <input type="email" id="auth-email" placeholder="ejemplo@correo.com" data-placeholder-es="ejemplo@correo.com" data-placeholder-en="example@email.com" required>
+
+            <label for="auth-password" id="label-pass" data-es="Contraseña" data-en="Password">Contraseña</label>
+            <input type="password" id="auth-password" placeholder="••••••••" required minlength="6">
+
+            <button type="button" id="auth-recovery-btn" class="btn-success" style="display:none;margin-top:10px;" data-es="Enviar enlace de recuperación" data-en="Send recovery link">Enviar enlace de recuperación</button>
+
+            <button type="submit" id="auth-submit-btn" class="btn-success" data-es="Entrar" data-en="Sign In">Entrar</button>
+
+            <nav class="auth-options">
+                <button type="button" id="toggle-auth-mode" class="btn-link" data-es="¿No tienes cuenta? Regístrate" data-en="Don't have an account? Register">¿No tienes cuenta? Regístrate</button>
+                <button type="button" id="link-recovery" class="btn-link" data-es="Olvidé mi contraseña" data-en="Forgot password?">Olvidé mi contraseña</button>
+            </nav>
+        </form>
+    </article>
+</dialog>
+
+<!-- ==========================================
+     SCRIPTS (orden importa)
+     ========================================== -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/i18n.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/app.js"></script>
+
+</body>
 </html>
